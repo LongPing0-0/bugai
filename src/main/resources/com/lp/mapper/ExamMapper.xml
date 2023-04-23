@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lp.mapper.ExamMapper">
+
+<!--     学术查找自己提交的试卷**第一层-->
+    <resultMap id="BaseMySubmitExam" type="com.lp.beans.entity.ExamEntity">
+        <id property="id" column="id" />
+        <result property="title" column="title" />
+        <result property="starTime" column="startTime" />
+        <result property="endTime" column="endTime" />
+        <result property="cid" column="cid" />
+        <result property="className" column="className" />
+        <collection property="subjectList"  ofType="com.lp.beans.entity.SingleChoiceEntity" column="id" select="getMySubmitSingleChoice"/>
+    </resultMap>
+
+    <!--     学术查找自己提交的试卷**第二层-->
+
+    <resultMap id="MySubmitOptionsList" type="com.lp.beans.entity.SingleChoiceEntity">
+        <id property="id" column="dxid"/>
+        <result property="title" column="dxtitle"/>
+        <result property="type" column="type" />
+        <result property="answer" column="answer" />
+        <result property="explain" column="explain" />
+        <result property="userAnswer" column="userAnswer" />
+        <result property="userFavor" column="userFavor" />
+        <collection property="optionList" ofType="com.lp.beans.entity.OptionsEntity">
+            <id property="xid" column="xid"/>
+            <result property="id" column="xxxid"/>
+            <result property="content" column="content" />
+        </collection>
+    </resultMap>
+
+<!--    第一层-->
+    <resultMap id="BaseExam" type="com.lp.beans.entity.ExamEntity">
+        <id property="id" column="id" />
+        <result property="title" column="title" />
+        <result property="starTime" column="startTime" />
+        <result property="endTime" column="endTime" />
+        <result property="cid" column="cid" />
+        <result property="className" column="className" />
+        <collection property="subjectList"  ofType="com.lp.beans.entity.SingleChoiceEntity" column="id" select="getSingleChoice"/>
+    </resultMap>
+
+
+    <resultMap id="OptionsList" type="com.lp.beans.entity.SingleChoiceEntity">
+        <id property="id" column="dxid"/>
+        <result property="title" column="dxtitle"/>
+        <result property="type" column="type" />
+        <result property="answer" column="answer" />
+        <result property="explain" column="explain" />
+        <collection property="optionList" ofType="com.lp.beans.entity.OptionsEntity">
+            <id property="xid" column="xid"/>
+            <result property="id" column="xxxid"/>
+            <result property="content" column="content" />
+        </collection>
+    </resultMap>
+
+<!--    学生查找自己交过的题-->
+    <select id="getMySubmitSingleChoice" resultMap="MySubmitOptionsList">
+        select
+            ed.dxid,
+            dx.title as dxtitle,
+            dx.type,
+            dx.answer,
+            dx.`explain`,
+            xx.xid,
+            xx.id as xxxid,
+            xx.content,
+            mdx.userAnswer,
+            mdx.userFavor
+        from
+            exam_danxuan ed,
+            xuanxiang xx,
+            danxuan dx
+                left join
+            mydanxuan mdx
+            on dx.id = mdx.id
+                and mdx.eid = 2
+        where
+            dx.id = ed.dxid
+          and xx.dxid = ed.dxid
+          and ed.eid = {id}
+    </select>
+
+<!--    查找题-->
+    <select id="getSingleChoice" resultMap="OptionsList">
+        select
+            ed.dxid,
+            dx.title as dxtitle,
+            dx.type,
+            dx.answer,
+            dx.`explain`,
+            xx.xid,
+            xx.id as xxxid,
+            xx.content
+        from
+            exam_danxuan ed,
+            danxuan dx,
+            xuanxiang xx
+        where
+            dx.id = ed.dxid
+          and xx.dxid = ed.dxid
+          and ed.eid = #{id}
+    </select>
+<!--    查找试卷-->
+    <select id="selectSingleChoice" resultMap="BaseExam">
+        select
+            e.id,
+            e.title,
+            e.startTime,
+            e.endTime,
+            c.className,
+            e.cid
+        from
+            exam e,
+            class c
+        where
+            e.cid = c.id
+        <if test="null!=cid">
+            AND
+            cid = #{cid}
+        </if>
+    </select>
+
+
+<!--    学生查找题库 &#45;&#45;看是否已经做过，做过的不查找-->
+    <select id="selectMySingleChoice" resultMap="BaseExam">
+        select
+            e.id,
+            e.title,
+            e.startTime,
+            e.endTime,
+            c.className,
+            e.cid
+        from
+            exam e,
+            class c
+        where
+            e.cid = c.id
+          and cid = #{cid}
+          and
+            e.id not in(select id from datika where uid = #{uid})
+    </select>
+    <select id="selectMySingleChoiceByEid" resultMap="BaseExam">
+        select
+            e.id,
+            e.title,
+            e.startTime,
+            e.endTime,
+            c.className,
+            e.cid
+        from
+            exam e,
+            class c
+        where
+            e.cid = c.id
+            and e.id = #{eid}
+    </select>
+<!--   学生查找自己提交的试卷-->
+    <select id="selectMySubmitChoice" resultType="com.lp.beans.entity.ExamEntity">
+
+    </select>
+</mapper>

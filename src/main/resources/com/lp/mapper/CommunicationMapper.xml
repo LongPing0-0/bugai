@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lp.mapper.CommunicationMapper">
+    <!--    获取圈子和评论详细信息-->
+    <resultMap id="getCommunicationAndComment" type="com.lp.beans.pojo.dto.CommunicationAndCommentDto">
+        <id column="id" property="id" />
+        <result property="uid" column="uid" />
+        <result property="content" column="content" />
+        <result property="enabled" column="enabled" />
+        <result property="created" column="created" />
+        <association property="avatar" column="uid" select="selectUserAvatar"/>
+        <association property="nickname" column="uid" select="selectUserInfo" />
+        <association property="communicationEnabled" column="uid" select="selectUserIsBaned" />
+        <association property="favorCount" column="id" select="selectCountFavorCommunication"/>
+        <association property="commentCount" column="id" select="selectCountCommunication" />
+        <collection property="comments" column="id" select="selectCommentDetails">
+            <id property="id" column="id" />
+            <result property="uid" column="uid" />
+            <result property="cmid" column="cmid" />
+            <result property="commentTime" column="commentTime" />
+            <result property="content" column="content" />
+
+            <result property="nickname" column="nickname" />
+        </collection>
+     </resultMap>
+
+<!--    查找分页交流论坛数据-->
+    <resultMap id="getCommunicationDetails" type="com.lp.beans.pojo.dto.CommunicationDto">
+        <id column="id" property="id" />
+        <result property="uid" column="uid" />
+        <result property="content" column="content" />
+        <result property="enabled" column="enabled" />
+        <result property="created" column="created" />
+        <association property="avatar" column="uid" select="selectUserAvatar"/>
+        <association property="nickname" column="uid" select="selectUserInfo" />
+        <association property="communicationEnabled" column="uid" select="selectUserIsBaned" />
+        <association property="favorCount" column="id" select="selectCountFavorCommunication"/>
+        <association property="commentCount" column="id" select="selectCountCommunication" />
+    </resultMap>
+<!--    发表圈子-->
+    <insert id="insertCommunication">
+        INSERT INTO communication(uid,content,created)
+        VALUES(#{uid},#{content},#{created})
+    </insert>
+<!--    点赞-->
+    <insert id="insertFavorByCmid">
+        INSERT INTO communication_favor(cmid,uid,favorTime)
+        VALUES(#{cmid},#{uid},#{favorTime})
+    </insert>
+
+<!--    评论-->
+    <insert id="insertMyComment">
+        INSERT INTO communication_comment(uid,cmid,commentTime,content)
+        VALUES(#{uid},#{cmid},#{commentTime},#{content})
+    </insert>
+
+<!--        删除所有圈子点赞信息-->
+    <delete id="deleteCommunicationFavorByCmid">
+        DELETE FROM communication_favor
+        WHERE cmid = #{cmid}
+    </delete>
+<!--    删除所有圈子评论信息-->
+    <delete id="deleteCommunicationCommentBycmid">
+        DELETE FROM communication_comment
+        WHERE cmid = #{cmid}
+    </delete>
+
+<!--    删除该圈子-->
+    <delete id="deleteCommunicationBycmid">
+        DELETE FROM communication
+        WHERE id = #{cmid}
+    </delete>
+<!--    删除评论-->
+    <delete id="deleteCommentById">
+        DELETE FROM communication_comment
+        WHERE id = #{id}
+    </delete>
+<!--    取消点赞-->
+    <delete id="deleteFavorByCmid">
+        DELETE FROM communication_favor
+        WHERE cmid = #{cmid} and uid = #{uid}
+    </delete>
+    <!--    查找分页交流论坛数据-->
+    <select id="selectCommunications" resultMap="com.lp.mapper.CommunicationMapper.getCommunicationDetails">
+        SELECT
+            cm.id,
+            cm.uid,
+            cm.content,
+            cm.created,
+            cm.enabled
+        from
+            communication cm
+        <if test="null!=cmid and ''!=cmid">
+            where cm.id = #{cmid}
+        </if>
+        ORDER BY
+            cm.created desc
+
+    </select>
+<!--    查找某个文章对应的评论数-->
+    <select id="selectCountCommunication" resultType="java.lang.Integer">
+        SELECT
+            count(id) as 'commentCount'
+        FROM
+            communication_comment
+        where
+            cmid = #{id}
+    </select>
+<!--    查找某个文章对应的点赞数-->
+    <select id="selectCountFavorCommunication" resultType="java.lang.Integer">
+        select
+            count(id) as 'favorCount'
+        from
+            communication_favor
+        where
+            cmid = #{id}
+    </select>
+<!--    查找用户是否被禁言-->
+    <select id="selectUserIsBaned" resultType="java.lang.Boolean">
+        SELECT
+            communicationEnabled
+        FROM
+            user_info
+        where
+            uid = #{uid}
+    </select>
+
+<!--    查找用户头像-->
+    <select id="selectUserAvatar" resultType="java.lang.String">
+        SELECT
+            avatar
+        FROM
+            user_info
+        where
+            uid = #{uid}
+    </select>
+<!--    查找用户姓名-->
+    <select id="selectUserInfo" resultType="java.lang.String">
+        SELECT
+            nickname
+        FROM
+            user_info
+        where
+            uid = #{uid}
+    </select>
+
+<!--    获取交流论坛文章长度-->
+    <select id="selectCommunicationLength" resultType="java.lang.Integer">
+        SELECT
+            count(*)
+        FROM
+            communication
+    </select>
+
+<!--    获取圈子和评论详细信息-->
+    <select id="selectCommunicationAndComment" resultMap="getCommunicationAndComment">
+        SELECT
+        cm.id,
+        cm.uid,
+        cm.content,
+        cm.created,
+        cm.enabled
+        from
+        communication cm
+        <if test="null!=cmid and ''!=cmid">
+            where cm.id = #{cmid}
+        </if>
+        ORDER BY
+        cm.created desc
+    </select>
+<!--     查找某cmid下详细评论信息-->
+    <select id="selectCommentDetails" resultType="com.lp.beans.pojo.dto.CommentDto">
+        SELECT
+            ccm.id,ccm.uid,ccm.cmid,ccm.commentTime,ccm.content,ui.nickname
+        FROM
+            communication_comment ccm,user_info ui
+        WHERE
+            ccm.uid = ui.uid
+          and ccm.cmid = #{cmid}
+    </select>
+
+    
+<!--    获取某个圈子里的所有评论详细信息-->
+    <select id="selectCommentByCmid" resultType="com.lp.beans.pojo.dto.CommentDto">
+        SELECT
+            ccm.id,ccm.uid,ccm.cmid,ccm.commentTime,ccm.content,ui.nickname,ui.avatar
+        FROM
+            communication_comment ccm,user_info ui
+        WHERE
+            ccm.uid = ui.uid
+          and ccm.cmid = #{cmid}
+        ORDER BY
+            ccm.commentTime desc
+    </select>
+<!--    查看是否点过赞了-->
+    <select id="selectIsCommentFavor" resultType="com.lp.beans.pojo.po.CommentFavorPo">
+        SELECT
+            id,
+            cmid,
+            uid,
+            favorTime
+        FROM
+            communication_favor
+        WHERE
+            cmid = #{cmid} and uid = #{uid}
+    </select>
+<!--    查找myself分页交流论坛数据-->
+    <select id="selectMySelfCommunication" resultMap="com.lp.mapper.CommunicationMapper.getCommunicationDetails">
+        SELECT
+        cm.id,
+        cm.uid,
+        cm.content,
+        cm.created,
+        cm.enabled
+        from
+        communication cm
+            where cm.uid = #{uid}
+        ORDER BY
+        cm.created desc
+    </select>
+</mapper>

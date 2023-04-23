@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lp.mapper.ClassMapper">
+<!--    添加班级-->
+    <insert id="insertClass">
+        insert into class(className,classNumber)
+        VALUES(#{className},#{classNumber})
+    </insert>
+<!--    学生通过班级号加入班级-->
+    <insert id="insetUserClass">
+        insert into user_class(uid,cid)
+        VALUES(#{uid},#{cid})
+    </insert>
+
+    <!--    修改班级名称-->
+    <update id="updateClass">
+        update class as c
+        set c.className = #{className}
+        where c.id = #{id}
+    </update>
+
+    <!--    删除班级-->
+    <delete id="deleteClass">
+        delete from class
+        where id = #{id}
+    </delete>
+    <!--    查找所有班级-->
+    <select id="selectAllClass" resultType="com.lp.beans.entity.ClassEntity">
+        select
+            id,
+            className,
+            classNumber
+        from
+            class
+        <if test="null!=className and ''!=className">
+            AND
+            className like concat('%',#{className},'%')
+        </if>
+    </select>
+
+<!--    查找是否存在该班级码-->
+    <select id="selectClassNumber" resultType="java.lang.Integer">
+        SELECT
+            id
+        from
+            class
+        where
+            classNumber = #{classNumber}
+    </select>
+<!--    通过classNumber查找id-->
+    <select id="selectClassById" resultType="java.lang.Integer">
+        select
+            id
+        from
+            class
+        where
+            classNumber = #{classNumber}
+    </select>
+
+<!--    查看学生是否已经加入过班级-->
+    <select id="selectUserClass" resultType="java.lang.Integer">
+        select
+            cid
+        from
+            user_class
+        where
+            uid = #{uid}
+    </select>
+</mapper>

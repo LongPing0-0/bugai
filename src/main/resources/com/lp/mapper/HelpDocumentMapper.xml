@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lp.mapper.HelpDocumentMapper">
+<!--    新增帮助文档-->
+    <insert id="insertHelpDocument">
+        INSERT INTO helpdocument(title,content)
+        VALUES(#{title},#{content})
+    </insert>
+
+<!--    删除帮助文档-->
+    <delete id="deleteHelpDocument">
+        DELETE FROM helpdocument
+        WHERE id = #{id}
+    </delete>
+
+    <!--    查找所有帮助文档-->
+    <select id="selectAllHelp" resultType="com.lp.beans.entity.HelpDocumentEntity">
+        select
+            id,
+            title,
+            content
+        FROM
+            helpdocument
+        <if test="null!=enabled and ''!=enabled">
+            where
+            enabled = #{enabled}
+        </if>
+    </select>
+</mapper>

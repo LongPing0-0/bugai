@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lp.mapper.UserMapper">
+
+    <!--父菜单map-->
+    <resultMap id="BaseMenu" type="com.lp.beans.entity.MenuEntity">
+        <id column="mid" property="id" />
+        <result column="url" property="url" />
+        <result column="path" property="path" />
+        <result column="component" property="component" />
+        <result column="name" property="name"/>
+        <result column="iconCls" property="iconCls" />
+    </resultMap>
+    <!--    子菜单map-->
+    <resultMap id="Menus" type="com.lp.beans.entity.MenuEntity" extends="BaseMenu">
+        <collection property="children" ofType="com.lp.beans.entity.MenuEntity">
+            <id column="mid2" property="id" />
+            <result column="url2" property="url" />
+            <result column="path2" property="path" />
+            <result column="component2" property="component" />
+            <result column="name2" property="name"/>
+            <result column="iconCls2" property="iconCls" />
+        </collection>
+    </resultMap>
+
+    <resultMap id="myUserInfo" type="com.lp.beans.pojo.po.UserInfoPo">
+        <id column="uid" property="uid"/>
+        <result column="username" property="username"/>
+        <result column="email" property="email" />
+        <result column="communicationEnabled" property="communicationEnabled" />
+        <result column="avatar" property="avatar" />
+        <result column="nickname" property="nickname" />
+        <result column="rid" property="rid" />
+        <result column="rname" property="rname" />
+        <result column="rname_zh" property="rnameZh"/>
+    </resultMap>
+    <!-- 通过用户名和密码来注册用户信息 -->
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="uid">
+        INSERT INTO user (uid,username,password,accountCreated)
+        VALUES
+            (null,#{username},#{password},#{accountCreated})
+    </insert>
+<!--    插入用户角色信息-->
+    <insert id="insertUserRoleInfo">
+        insert into user_role(uid,rid)
+        VALUES(#{uid},#{rid})
+    </insert>
+    <!-- 用户找回密码 -->
+    <update id="updateUserPassword">
+        UPDATE user
+        SET password = #{password}
+        WHERE
+                uid IN (
+                SELECT
+                    ui.uid
+                FROM
+                    user_info ui
+                WHERE
+                        ui.email = ( SELECT email FROM emailcode WHERE email = #{email} AND type = #{type} AND code = #{code} )
+            )
+    </update>
+
+<!--    用户禁言与解除禁言-->
+    <update id="updateUserInfoByCommunicationEnabled">
+        UPDATE user_info
+        SET communicationEnabled = #{communicationEnabled}
+        WHERE uid = #{uid}
+    </update>
+<!--    通过uid和avatar更新用户头像信息-->
+    <update id="updateUserAvatar">
+        UPDATE user_info
+        SET avatar = #{avatar}
+        WHERE uid = #{uid}
+    </update>
+    <!-- 根据用户名查询用户信息 -->
+    <select id="selectUserByUsername" resultType="com.lp.beans.entity.UserEntity">
+        select uid,
+               username,
+               password,
+               enabled,
+               accountNonExpired,
+               accountNonLocked,
+               credentialsNonExpired
+        from user
+        where username = #{username}
+    </select>
+    <!-- 根据用名户查找特定用户信息 -->
+    <select id="selectUserInfoByUid" resultMap="myUserInfo">
+        SELECT
+            u.uid,
+            u.username,
+            ui.email,
+            ui.nickname,
+            ui.communicationEnabled,
+            ui.avatar,
+            ur.rid,
+            r.rname,
+            r.rname_zh
+        FROM
+            user u,
+            user_info ui,
+            user_role ur,
+            role r
+        WHERE
+            u.uid = ui.uid
+          and ur.rid = r.rid
+          and u.uid = ur.uid
+          AND u.uid = #{uid}
+    </select>
+<!--    根据用户uid查找角色rid-->
+    <select id="getRoleInfoByUid" resultType="com.lp.beans.entity.RoleEntity">
+        SELECT
+            r.rid,
+            r.rname_zh,
+            r.rname
+        FROM
+            user_role ur,
+            role r
+        WHERE
+            ur.rid = r.rid
+          and
+            ur.uid = #{uid}
+    </select>
+<!--    //根据用户uid查找用户角色信息-->
+    <select id="selectRoleByUid" resultType="com.lp.beans.entity.RoleEntity">
+        SELECT
+            r.rid,
+            r.rname_zh,
+            r.rname
+        FROM
+            user_role ur,
+            role r
+        WHERE
+            ur.rid = r.rid
+          and
+            ur.uid = #{uid}
+    </select>
+
+<!--    根据用户uid查找用户菜单权限-->
+    <select id="getMenusByUid" resultMap="Menus">
+        SELECT
+            m.mid,
+            m.url,
+            m.path,
+            m.component,
+            m.`name`,
+            m.iconCls,
+            c.mid AS mid2,
+            c.url AS url2,
+            c.path AS path2,
+            c.component AS component2,
+            c.`name` AS name2,
+            c.iconCls AS iconCls2
+        FROM
+            role r,
+            menu_role mr,
+            menu m,
+            menu c,
+            user_role ur
+        WHERE
+            r.rid = mr.rid
+          AND mr.mid = m.mid
+          AND c.mid = mr.child
+          AND r.rid = ur.rid
+          AND ur.uid = #{uid}
+    </select>
+<!--    查找用户信息表中所有email和uid-->
+    <select id="selectAllUserAvatar" resultType="com.lp.beans.pojo.dto.UpUserAvatarDto">
+        SELECT
+            uid,
+            email
+        FROM
+            user_info
+    </select>
+</mapper>

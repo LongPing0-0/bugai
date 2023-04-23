@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lp.mapper.StudentMapper">
+
+    <resultMap id="myUserInfo" type="com.lp.beans.entity.StudentInfoEntity">
+        <id column="uid" property="uid"/>
+        <result column="username" property="username"/>
+        <result column="email" property="email" />
+        <result column="nickname" property="nickname" />
+        <result column="rid" property="rid" />
+        <result column="rname" property="rname" />
+        <result column="rname_zh" property="rnameZh"/>
+        <result column="cid" property="cid" />
+        <result column="className" property="className"/>
+    </resultMap>
+
+<!--    查找所有学生信息-->
+    <select id="getAllStudentInfo" resultMap="myUserInfo">
+        SELECT
+            u.uid,
+            u.username,
+            ui.email,
+            ui.nickname,
+            ur.rid,
+            r.rname,
+            r.rname_zh,
+            uc.cid,
+            c.className
+        FROM
+            user u
+                LEFT JOIN
+            user_class uc
+            on uc.uid = u.uid
+                LEFT JOIN
+            class c
+            on c.id = uc.cid,
+            user_info ui,
+            user_role ur,
+            role r
+        WHERE
+            u.uid = ui.uid
+          and ur.rid = r.rid
+          and u.uid = ur.uid
+          and r.rid = 2
+        <if test="null!=nickname and ''!=nickname">
+            AND
+            ui.nickname like concat('%',#{nickname},'%')
+        </if>
+    </select>
+</mapper>

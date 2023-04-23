@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lp.mapper.TeacherMapper">
+    <resultMap id="myUserInfo" type="com.lp.beans.pojo.po.UserInfoPo">
+        <id column="uid" property="uid"/>
+        <result column="username" property="username"/>
+        <result column="email" property="email" />
+        <result column="nickname" property="nickname" />
+        <result column="rid" property="rid" />
+        <result column="rname" property="rname" />
+        <result column="rname_zh" property="rnameZh"/>
+    </resultMap>
+
+<!--    查找所有老师信息-->
+    <select id="getAllTeacherInfo" resultMap="myUserInfo">
+        SELECT
+            u.uid,
+            u.username,
+            ui.email,
+            ui.nickname,
+            ur.rid,
+            r.rname,
+            r.rname_zh
+        FROM
+            user u,
+            user_info ui,
+            user_role ur,
+            role r
+        WHERE
+            u.uid = ui.uid
+          and ur.rid = r.rid
+          and u.uid = ur.uid
+          and r.rid = 3
+    </select>
+</mapper>

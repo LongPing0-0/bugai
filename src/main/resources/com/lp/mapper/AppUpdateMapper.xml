@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lp.mapper.AppUpdateMapper">
+
+<!--    app下载人数-->
+    <update id="updateAppCount">
+        UPDATE app_download_count
+        SET count = #{count}
+        WHERE id = 1
+    </update>
+
+    <!--    检查更新-->
+    <select id="selectAppUpdate" resultType="com.lp.beans.pojo.dto.AppUpdateDto">
+        SELECT
+            id,
+            versionCode,
+            url,
+            content,
+            enabled
+        FROM
+            appupdate
+        WHERE
+            enabled = 1
+    </select>
+<!--    查找app已经下载人数-->
+    <select id="selectCount" resultType="java.lang.Integer">
+        SELECT
+            count
+        FROM
+            app_download_count
+    </select>
+<!--    用户查找更新日志信息-->
+    <select id="selectAllUpdateInfo" resultType="com.lp.beans.pojo.po.UpdateAppInfo">
+        SELECT
+            id,
+            version,
+            url,
+            content,
+            created
+        FROM
+            appupdate
+        ORDER BY
+            created DESC
+    </select>
+</mapper>
