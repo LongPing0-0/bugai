@@ -1,0 +1,26 @@
+
+.content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background-color: #aaffff;
+	color:#4756DF;
+}
+.bt1{
+		margin: 5px;
+		width: 247px;
+		height: 40px;
+		background-color: #FFBE21;
+		color: #ffffff;
+		font-size: 12px;
+		line-height: 35px;
+		border-radius: 17px;
+}
+.title {
+	margin: 8px;
+	bottom: 40rpx;
+	font-size: 16px;
+	color: #07b6bb;
+}
+

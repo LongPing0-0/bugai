@@ -1,0 +1,772 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>补概——第二章骰子实验</title>
+		<link rel="stylesheet" type="text/css" href="one.css">
+		<style>
+			.dices {
+			  background-image: url(./random-dice.png);
+			  width: 366px;
+			  height: 366px;
+			  background-position: 0% 100%;
+			  animation: .2s steps(5, start) random infinite;
+			}
+			
+			@keyframes random {
+			  to {
+			    background-position: 100% 100%;
+			  }
+			}
+			
+			#dices {
+			  display: none;
+			}
+			
+			#dices:checked + label .dices {
+			  animation-play-state: paused;
+			}
+			
+			.dices::before {
+			  content: '?';
+			  background-color: rgba(255, 255, 255, .8);
+			  width: inherit;
+			  height: inherit;
+			  display: flex;
+			  justify-content: center;
+			  align-items: center;
+			  font-size: 320px;
+			  font-family: Helvetica;
+			  backdrop-filter: blur(20px);
+			  -webkit-backdrop-filter: blur(20px);
+			  border-radius: 60px;
+			}
+			
+			#dices:checked + label .dices::before {
+			  display: none;
+			}
+		</style>
+		<style>
+		body .glass {
+		  width: 280px;
+		  height: 320px;
+		  background-color: #ffffff26;
+		  border-radius: 140px/50px;
+		  box-shadow: 0px 5px 15px 0px #000;
+		  position: relative;
+		}
+		body .glass::before, body .glass::after {
+		  content: "";
+		  position: absolute;
+		  width: 280px;
+		  height: 105px;
+		  box-sizing: border-box;
+		  border: 10px solid #ffffff26;
+		  border-radius: 140px/50px;
+		  box-shadow: 0 0 90px 90px #ffffff1f;
+		  background-color: #ffffff26;
+		  z-index: 2;
+		}
+		body .glass::after {
+		  width: 270px;
+		  margin-left: 5px;
+		  /* 因为上面用到了绝对定位，所以这里就不能用marign: 0 auto了 */
+		  bottom: -10px;
+		}
+		body .glass .cube {
+		  position: absolute;
+		  width: 80px;
+		  height: 80px;
+		  left: 50%;
+		  top: 42%;
+		  transform-style: preserve-3d;
+		  z-index: 1;
+		}
+		body .glass .cube.cube1 {
+		  transform: rotateX(24deg) rotateY(40deg) translate(-100%, -140%);
+		  transition: transform 0.5s ease 0s;
+		}
+		body .glass .cube.cube1 .circle {
+		  border-radius: 50%;
+		  border: 3px solid rgba(255, 255, 255, 0.2);
+		  background-color: rgba(255, 255, 255, 0.2);
+		  box-shadow: 0 0 4% rgba(255, 255, 255, 0.2), inset 0 0 4% rgba(255, 255, 255, 0.2);
+		  position: absolute;
+		  box-sizing: border-box;
+		  width: 25px;
+		  height: 25px;
+		}
+		body .glass .cube.cube1 .circle1 {
+		  top: 50px;
+		  left: 50px;
+		  transform: translate(-15px, -15px);
+		}
+		body .glass .cube.cube1 .circle2:nth-child(1) {
+		  top: 15px;
+		  left: 15px;
+		}
+		body .glass .cube.cube1 .circle2:nth-child(2) {
+		  bottom: 15px;
+		  right: 15px;
+		}
+		body .glass .cube.cube1 .circle3:nth-child(1) {
+		  top: 10px;
+		  left: 10px;
+		}
+		body .glass .cube.cube1 .circle3:nth-child(2) {
+		  top: 0px;
+		  bottom: 0px;
+		  left: 0px;
+		  right: 0px;
+		  margin: auto;
+		}
+		body .glass .cube.cube1 .circle3:nth-child(3) {
+		  bottom: 10px;
+		  right: 10px;
+		}
+		body .glass .cube.cube1 .circle4:nth-child(1) {
+		  top: 15px;
+		  left: 15px;
+		}
+		body .glass .cube.cube1 .circle4:nth-child(2) {
+		  top: 15px;
+		  right: 15px;
+		}
+		body .glass .cube.cube1 .circle4:nth-child(3) {
+		  bottom: 15px;
+		  left: 15px;
+		}
+		body .glass .cube.cube1 .circle4:nth-child(4) {
+		  bottom: 15px;
+		  right: 15px;
+		}
+		body .glass .cube.cube1 .circle5:nth-child(1) {
+		  top: 15px;
+		  left: 15px;
+		}
+		body .glass .cube.cube1 .circle5:nth-child(2) {
+		  top: 15px;
+		  right: 15px;
+		}
+		body .glass .cube.cube1 .circle5:nth-child(3) {
+		  top: 50px;
+		  left: 50px;
+		  transform: translate(-15px, -15px);
+		}
+		body .glass .cube.cube1 .circle5:nth-child(4) {
+		  bottom: 15px;
+		  left: 15px;
+		}
+		body .glass .cube.cube1 .circle5:nth-child(5) {
+		  bottom: 15px;
+		  right: 15px;
+		}
+		body .glass .cube.cube1 .circle6:nth-child(1) {
+		  top: 5px;
+		  left: 15px;
+		}
+		body .glass .cube.cube1 .circle6:nth-child(2) {
+		  top: 5px;
+		  right: 15px;
+		}
+		body .glass .cube.cube1 .circle6:nth-child(3) {
+		  top: 50%;
+		  left: 15px;
+		  transform: translateY(-50%);
+		}
+		body .glass .cube.cube1 .circle6:nth-child(4) {
+		  top: 50%;
+		  right: 15px;
+		  transform: translateY(-50%);
+		}
+		body .glass .cube.cube1 .circle6:nth-child(5) {
+		  bottom: 5px;
+		  left: 15px;
+		}
+		body .glass .cube.cube1 .circle6:nth-child(6) {
+		  bottom: 5px;
+		  right: 15px;
+		}
+		body .glass .cube.cube2 {
+		  transform: rotateX(-30deg) rotateY(-27deg) translate(-196%, 34%);
+		  transition: transform 0.75s ease 0s;
+		}
+		body .glass .cube.cube2 .circle {
+		  border-radius: 50%;
+		  border: 3px solid rgba(255, 255, 255, 0.2);
+		  background-color: rgba(255, 255, 255, 0.2);
+		  box-shadow: 0 0 4% rgba(255, 255, 255, 0.2), inset 0 0 4% rgba(255, 255, 255, 0.2);
+		  position: absolute;
+		  box-sizing: border-box;
+		  width: 25px;
+		  height: 25px;
+		}
+		body .glass .cube.cube2 .circle1 {
+		  top: 50px;
+		  left: 50px;
+		  transform: translate(-15px, -15px);
+		}
+		body .glass .cube.cube2 .circle2:nth-child(1) {
+		  top: 15px;
+		  left: 15px;
+		}
+		body .glass .cube.cube2 .circle2:nth-child(2) {
+		  bottom: 15px;
+		  right: 15px;
+		}
+		body .glass .cube.cube2 .circle3:nth-child(1) {
+		  top: 10px;
+		  left: 10px;
+		}
+		body .glass .cube.cube2 .circle3:nth-child(2) {
+		  top: 0px;
+		  bottom: 0px;
+		  left: 0px;
+		  right: 0px;
+		  margin: auto;
+		}
+		body .glass .cube.cube2 .circle3:nth-child(3) {
+		  bottom: 10px;
+		  right: 10px;
+		}
+		body .glass .cube.cube2 .circle4:nth-child(1) {
+		  top: 15px;
+		  left: 15px;
+		}
+		body .glass .cube.cube2 .circle4:nth-child(2) {
+		  top: 15px;
+		  right: 15px;
+		}
+		body .glass .cube.cube2 .circle4:nth-child(3) {
+		  bottom: 15px;
+		  left: 15px;
+		}
+		body .glass .cube.cube2 .circle4:nth-child(4) {
+		  bottom: 15px;
+		  right: 15px;
+		}
+		body .glass .cube.cube2 .circle5:nth-child(1) {
+		  top: 15px;
+		  left: 15px;
+		}
+		body .glass .cube.cube2 .circle5:nth-child(2) {
+		  top: 15px;
+		  right: 15px;
+		}
+		body .glass .cube.cube2 .circle5:nth-child(3) {
+		  top: 50px;
+		  left: 50px;
+		  transform: translate(-15px, -15px);
+		}
+		body .glass .cube.cube2 .circle5:nth-child(4) {
+		  bottom: 15px;
+		  left: 15px;
+		}
+		body .glass .cube.cube2 .circle5:nth-child(5) {
+		  bottom: 15px;
+		  right: 15px;
+		}
+		body .glass .cube.cube2 .circle6:nth-child(1) {
+		  top: 5px;
+		  left: 15px;
+		}
+		body .glass .cube.cube2 .circle6:nth-child(2) {
+		  top: 5px;
+		  right: 15px;
+		}
+		body .glass .cube.cube2 .circle6:nth-child(3) {
+		  top: 50%;
+		  left: 15px;
+		  transform: translateY(-50%);
+		}
+		body .glass .cube.cube2 .circle6:nth-child(4) {
+		  top: 50%;
+		  right: 15px;
+		  transform: translateY(-50%);
+		}
+		body .glass .cube.cube2 .circle6:nth-child(5) {
+		  bottom: 5px;
+		  left: 15px;
+		}
+		body .glass .cube.cube2 .circle6:nth-child(6) {
+		  bottom: 5px;
+		  right: 15px;
+		}
+		body .glass .cube.cube3 {
+		  transform: rotateX(148deg) rotateY(71deg) translate(10%, -100%);
+		  transition: transform 0.85s ease 0s;
+		}
+		body .glass .cube.cube3 .circle {
+		  border-radius: 50%;
+		  border: 3px solid rgba(255, 255, 255, 0.2);
+		  background-color: rgba(255, 255, 255, 0.2);
+		  box-shadow: 0 0 4% rgba(255, 255, 255, 0.2), inset 0 0 4% rgba(255, 255, 255, 0.2);
+		  position: absolute;
+		  box-sizing: border-box;
+		  width: 25px;
+		  height: 25px;
+		}
+		body .glass .cube.cube3 .circle1 {
+		  top: 50px;
+		  left: 50px;
+		  transform: translate(-15px, -15px);
+		}
+		body .glass .cube.cube3 .circle2:nth-child(1) {
+		  top: 15px;
+		  left: 15px;
+		}
+		body .glass .cube.cube3 .circle2:nth-child(2) {
+		  bottom: 15px;
+		  right: 15px;
+		}
+		body .glass .cube.cube3 .circle3:nth-child(1) {
+		  top: 10px;
+		  left: 10px;
+		}
+		body .glass .cube.cube3 .circle3:nth-child(2) {
+		  top: 0px;
+		  bottom: 0px;
+		  left: 0px;
+		  right: 0px;
+		  margin: auto;
+		}
+		body .glass .cube.cube3 .circle3:nth-child(3) {
+		  bottom: 10px;
+		  right: 10px;
+		}
+		body .glass .cube.cube3 .circle4:nth-child(1) {
+		  top: 15px;
+		  left: 15px;
+		}
+		body .glass .cube.cube3 .circle4:nth-child(2) {
+		  top: 15px;
+		  right: 15px;
+		}
+		body .glass .cube.cube3 .circle4:nth-child(3) {
+		  bottom: 15px;
+		  left: 15px;
+		}
+		body .glass .cube.cube3 .circle4:nth-child(4) {
+		  bottom: 15px;
+		  right: 15px;
+		}
+		body .glass .cube.cube3 .circle5:nth-child(1) {
+		  top: 15px;
+		  left: 15px;
+		}
+		body .glass .cube.cube3 .circle5:nth-child(2) {
+		  top: 15px;
+		  right: 15px;
+		}
+		body .glass .cube.cube3 .circle5:nth-child(3) {
+		  top: 50px;
+		  left: 50px;
+		  transform: translate(-15px, -15px);
+		}
+		body .glass .cube.cube3 .circle5:nth-child(4) {
+		  bottom: 15px;
+		  left: 15px;
+		}
+		body .glass .cube.cube3 .circle5:nth-child(5) {
+		  bottom: 15px;
+		  right: 15px;
+		}
+		body .glass .cube.cube3 .circle6:nth-child(1) {
+		  top: 5px;
+		  left: 15px;
+		}
+		body .glass .cube.cube3 .circle6:nth-child(2) {
+		  top: 5px;
+		  right: 15px;
+		}
+		body .glass .cube.cube3 .circle6:nth-child(3) {
+		  top: 50%;
+		  left: 15px;
+		  transform: translateY(-50%);
+		}
+		body .glass .cube.cube3 .circle6:nth-child(4) {
+		  top: 50%;
+		  right: 15px;
+		  transform: translateY(-50%);
+		}
+		body .glass .cube.cube3 .circle6:nth-child(5) {
+		  bottom: 5px;
+		  left: 15px;
+		}
+		body .glass .cube.cube3 .circle6:nth-child(6) {
+		  bottom: 5px;
+		  right: 15px;
+		}
+		body .glass .cube div {
+		  position: absolute;
+		  width: 100px;
+		  height: 100px;
+		  left: 50%;
+		  top: 50%;
+		  border-radius: 8px;
+		  background: radial-gradient(#8df2ff, #6bd1ff);
+		  box-shadow: 0 0 4px rgba(255, 255, 255, 0.2), inset 0 0 4px rgba(255, 255, 255, 0.2);
+		}
+		body .glass .cube div:nth-child(1) {
+		  transform: translate3d(0, 0, 50px);
+		}
+		body .glass .cube div:nth-child(2) {
+		  transform: rotateX(90deg) translate3d(0, 0, 50px);
+		}
+		body .glass .cube div:nth-child(3) {
+		  transform: rotateX(180deg) translate3d(0, 0, 50px);
+		}
+		body .glass .cube div:nth-child(4) {
+		  transform: rotateX(270deg) translate3d(0, 0, 50px);
+		}
+		body .glass .cube div:nth-child(5) {
+		  transform: rotateY(90deg) translate3d(0, 0, 50px);
+		}
+		body .glass .cube div:nth-child(6) {
+		  transform: rotateY(-90deg) translate3d(0, 0, 50px);
+		}
+		body .click {
+		  width: 100%;
+		  height: 320px;
+		  opacity: 0;
+		  position: absolute;
+		  z-index: 3;
+		  margin: 0;
+		  cursor: pointer;
+		  outline: none;
+		}
+		body .click + .glass {
+		  animation: unshake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+		  transform: translate3d(0, 0, 0);
+		}
+		body .click:checked + .glass {
+		  animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+		  transform: translate3d(0, 0, 0);
+		  backface-visibility: hidden;
+		}
+		body .click:checked + .glass .cube1 {
+		  transform: rotateX(-57deg) rotateY(-40deg) translate(-107%, -41%);
+		  transition: transform 0.5s ease 0s;
+		}
+		body .click:checked + .glass .cube2 {
+		  transform: rotateX(-130deg) rotateY(-57deg) translate(-283%, -346%);
+		  transition: transform 0.75s ease 0s;
+		}
+		body .click:checked + .glass .cube3 {
+		  transform: rotateX(-133deg) rotateY(71deg) translate(13%, -212%);
+		  transition: transform 0.85s ease 0s;
+		}
+		@keyframes shake {
+		  0% {  
+		    transform: translate(1px, 1px) rotate(0deg);
+		  }
+		  10% {
+		    transform: translate(-1px, -2px) rotate(-1deg);
+		  }
+		  20% {
+		    transform: translate(-3px, 0px) rotate(1deg);
+		  }
+		  30% {
+		    transform: translate(3px, 2px) rotate(0deg);
+		  }
+		  40% {
+		    transform: translate(1px, -1px) rotate(1deg);
+		  }
+		  50% {
+		    transform: translate(-1px, 2px) rotate(-1deg);
+		  }
+		  60% {
+		    transform: translate(-3px, 1px) rotate(0deg);
+		  }
+		  70% {
+		    transform: translate(3px, 1px) rotate(-1deg);
+		  }
+		  80% {
+		    transform: translate(-1px, -1px) rotate(1deg);
+		  }
+		  90% {
+		    transform: translate(1px, 2px) rotate(0deg);
+		  }
+		  100% {
+		    transform: translate(1px, 1px) rotate(0deg);
+		  }
+		}
+		@keyframes unshake {
+		  0% {
+		    transform: translate(1px, 1px) rotate(0deg);
+		  }
+		  10% {
+		    transform: translate(-1px, -2px) rotate(-1deg);
+		  }
+		  20% {
+		    transform: translate(-3px, 0px) rotate(1deg);
+		  }
+		  30% {
+		    transform: translate(3px, 2px) rotate(0deg);
+		  }
+		  40% {
+		    transform: translate(1px, -1px) rotate(1deg);
+		  }
+		  50% {
+		    transform: translate(-1px, 2px) rotate(-1deg);
+		  }
+		  60% {
+		    transform: translate(-3px, 1px) rotate(0deg);
+		  }
+		  70% {
+		    transform: translate(3px, 1px) rotate(-1deg);
+		  }
+		  80% {
+		    transform: translate(-1px, -1px) rotate(1deg);
+		  }
+		  90% {
+		    transform: translate(1px, 2px) rotate(0deg);
+		  }
+		  100% {
+		    transform: translate(1px, 1px) rotate(0deg);
+		  }
+		}
+		  </style>
+		<script src="vue.min.js"></script><!-- 引入vue -->
+	</head>
+	<body>
+		<div style="max-width: 800px; margin: 0 auto; padding: 20px;">
+		<h1 style="font-size: 36px;
+			font-weight: bold;
+			text-align: center;
+			margin-top: 50px;
+			margin-bottom: 30px;
+			text-shadow: 2px 2px #333;">骰子与随机性</h1>
+		<p style="margin: 0;
+			padding: 10px;
+			background-color: #008c8c;
+			border-radius: 10px;
+			box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);">&emsp;骰子是一种常见的六面体游戏骰子，每个面都有一个数字，从1到6。在各种游戏和赌博中，骰子被广泛使用。除了六面骰子，还有其他类型的骰子，例如四面骰子、八面骰子等，它们的面数不同，因此随机生成的数字范围也不同。</p>
+		<p style="margin: 0;
+			padding: 10px;
+			background-color: #008c8c;
+			border-radius: 10px;
+			box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);">&emsp;骰子还可以用于统计学中的随机抽样，以及决策理论中的随机选择。在计算机编程中，骰子经常用于实现随机数生成算法。</p>
+		<p style="margin: 0;
+			padding: 10px;
+			background-color: #008c8c;
+			border-radius: 10px;
+			box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);">&emsp;总之，从一颗简单的骰子开始，我们可以深入探讨许多与随机数和概率有关的话题。<br>&emsp;首先，让我们从单次单枚点数1到6的骰子开始，随后进行多次多枚点数自拟的骰子实验，最后可以去赋权来调整发生概率，并从数字拓展到字词、符号。</p>
+		</div>
+		<div id="vm" class="phone">
+			<p class="showtool" v-on:click="showRoleNavtool(0)"><span>{{ShowTooltext}}</span></p>
+			<div v-show="filShowTool" class="nav">
+				<ul>
+					<li v-on:click="showRoleNavtool(0)" :style="{color:(toolNumber===0)?fontColor[2]:'',background:(toolNumber===0)?bacgroundColor[0]:''}">简单</li>
+					<li v-on:click="showRoleNavtool(1)" :style="{color:(toolNumber===1)?fontColor[2]:'',background:(toolNumber===1)?bacgroundColor[0]:''}">实验</li>
+					<li v-on:click="showRoleNavtool(2)" :style="{color:(toolNumber===2)?fontColor[2]:'',background:(toolNumber===2)?bacgroundColor[0]:''}">赋权</li>
+				</ul>
+			</div>
+			<div class="dice">
+				<dl v-show="toolNumber===0">
+					
+					<input type="checkbox" id="dices">
+					<label for="dices">
+					    <div class="dices"></div>
+					</label>
+					
+					</dl>
+				<!-- vue标记 -->
+				<dl v-show="toolNumber===1">
+					<dt><strong>多次实验</strong></dt>
+					<p>（满足自定义随机数的最大数，每次投的个数，以及投的次数，只能输入正整数）</p>					
+					<table>
+						<tr>
+							<td>骰子最大点数：</td>
+							<td><input type="number" name="rd1" v-model.number="rd1" value="6" min="2"></td>
+						</tr>
+						<tr>
+							<td>每次投骰子个数</td>
+							<td><input type="number" name="num1"  v-model.number="num1" value="1" min="1"></td>
+						</tr>
+						<tr>
+							<td>投骰子次数</td>
+							<td><input type="number" name="fre1"  v-model.number="fre1" value="1" min="1"></td>
+						</tr>
+					</table>
+					<table>
+						<tr>
+							<td>复数单次抽样结果：</td>
+							<td><label for="First1Sub">可重复<input type="radio" name="sub1" v-model="sub1" checked="checked" value="repeat" id="First1Sub" class="input-radio1"></td>
+							<td><label for="First1sub">不重复<input type="radio" name="sub1" v-model="sub1" id="First1sub" value="norepeat" class="input-radio1"></td>
+						</tr>
+					</table>
+					<p>点击下方骰子开始实验</p>
+					<input type="checkbox"class="click" button v-on:click.prevent="calResultTool1()"></button>>
+					<div class="glass">
+					  <div class="cube cube1">
+					    <div>
+					      <span class="circle circle1"></span>
+					    </div>
+					    <div>
+					      <span class="circle circle2"></span>
+					      <span class="circle circle2"></span>
+					    </div>
+					    <div>
+					      <span class="circle circle3"></span>
+					      <span class="circle circle3"></span>
+					      <span class="circle circle3"></span>
+					    </div>
+					    <div>
+					      <span class="circle circle4"></span>
+					      <span class="circle circle4"></span>
+					      <span class="circle circle4"></span>
+					      <span class="circle circle4"></span>
+					    </div>
+					    <div>
+					      <span class="circle circle5"></span>
+					      <span class="circle circle5"></span>
+					      <span class="circle circle5"></span>
+					      <span class="circle circle5"></span>
+					      <span class="circle circle5"></span>
+					    </div>
+					    <div>
+					      <span class="circle circle6"></span>
+					      <span class="circle circle6"></span>
+					      <span class="circle circle6"></span>
+					      <span class="circle circle6"></span>
+					      <span class="circle circle6"></span>
+					      <span class="circle circle6"></span>
+					    </div>
+					  </div>
+					  <div class="cube cube2">
+					    <div>
+					      <span class="circle circle1"></span>
+					    </div>
+					    <div>
+					      <span class="circle circle2"></span>
+					      <span class="circle circle2"></span>
+					    </div>
+					    <div>
+					      <span class="circle circle3"></span>
+					      <span class="circle circle3"></span>
+					      <span class="circle circle3"></span>
+					    </div>
+					    <div>
+					      <span class="circle circle4"></span>
+					      <span class="circle circle4"></span>
+					      <span class="circle circle4"></span>
+					      <span class="circle circle4"></span>
+					    </div>
+					    <div>
+					      <span class="circle circle5"></span>
+					      <span class="circle circle5"></span>
+					      <span class="circle circle5"></span>
+					      <span class="circle circle5"></span>
+					      <span class="circle circle5"></span>
+					    </div>
+					    <div>
+					      <span class="circle circle6"></span>
+					      <span class="circle circle6"></span>
+					      <span class="circle circle6"></span>
+					      <span class="circle circle6"></span>
+					      <span class="circle circle6"></span>
+					      <span class="circle circle6"></span>
+					    </div>
+					  </div>
+					  <div class="cube cube3">
+					    <div>
+					      <span class="circle circle1"></span>
+					    </div>
+					    <div>
+					      <span class="circle circle2"></span>
+					      <span class="circle circle2"></span>
+					    </div>
+					    <div>
+					      <span class="circle circle3"></span>
+					      <span class="circle circle3"></span>
+					      <span class="circle circle3"></span>
+					    </div>
+					    <div>
+					      <span class="circle circle4"></span>
+					      <span class="circle circle4"></span>
+					      <span class="circle circle4"></span>
+					      <span class="circle circle4"></span>
+					    </div>
+					    <div>
+					      <span class="circle circle5"></span>
+					      <span class="circle circle5"></span>
+					      <span class="circle circle5"></span>
+					      <span class="circle circle5"></span>
+					      <span class="circle circle5"></span>
+					    </div>
+					    <div>
+					      <span class="circle circle6"></span>
+					      <span class="circle circle6"></span>
+					      <span class="circle circle6"></span>
+					      <span class="circle circle6"></span>
+					      <span class="circle circle6"></span>
+					      <span class="circle circle6"></span>
+					    </div>
+					  </div>
+					</div>
+					<dt>
+						<b>结果如下：</b>每次新结果将覆盖上一次结果
+					</dt>
+					<div class="result-box" id="result_box1">
+						<dd v-for="(item,index) in resultTool1" :key="index">{{item}}</dd>
+					</div>
+				</dl>
+				
+				<dl v-show="toolNumber===2" class="quanzhong">
+					<dt><strong>附加权重</strong></dt>
+					<p>（可以通过附加权重影响骰子数字出现的概率）</p>
+					<table border="3">
+						<tr>
+							<th class="weightValue">权重</th>
+							<td class="alternative">数字或备选词</td>
+						</tr>
+						<tr v-for='qz of native' :key='qz.id'>
+							<td class="weightValue">
+								<input type="number" v-model.number.value="qz.value1" min='1' style="text-align: center;">
+							</td>
+							<td class="alternative">
+								<input type="text" v-model.value="qz.value2">
+							</td>
+							<td>
+								<button @click='deleteNative(qz.id,qz.value2)'>删除</button>
+							</td>
+						</tr>
+					</table>
+					<div class="quanzhong_add">
+						<button @click="addNative()" style="margin-right: 50px;">+备选项</button>
+					</div>
+					<table>
+						<tr>
+							<td>num：</td>
+							<td><input type="number" name="num2"  v-model.number="num2" value="1" min="1"></td>
+							<td class="tag">输入每次投骰子的个数</td>
+						</tr>
+						<tr>
+							<td>fre：</td>
+							<td><input type="number" name="fre2"  v-model.number="fre2" value="1" min="1"></td>
+							<td class="tag">输入投骰子的次数</td>
+						</tr>
+					</table>
+					<table>
+						<tr>
+							<td>复数单次抽样结果：</td>
+							<td><label for="First2Sub">可重复<input type="radio" name="sub2" v-model="sub2" checked="checked" value="repeat" id="First2Sub" class="input-radio1"></td>
+							<td><label for="First2sub">不重复<input type="radio" name="sub2" v-model="sub2" id="First2sub" value="norepeat" class="input-radio1"></td>
+						</tr>
+					</table>
+					<dd class="input-button"><button v-on:click.prevent="calResultTool2()">投一下~</button></dd>
+					<dt>
+						<b>结果如下：</b>每次新结果将覆盖上一次结果
+					</dt>
+					<div class="result-box" id="result_box2">
+						<dd v-for="(item,index) in resultTool2" :key="index">{{item}}</dd>
+					</div>
+			 	</dl>
+		</div>  
+	  
+	</body>
+	<!-- <script type="text/javascript" src="./data.js"></script> -->
+	<script type="text/javascript" src="./check.js"></script>
+	<script type="text/javascript" src="./two.js"></script>
+	<script type="text/javascript" src="./one.js"></script>
+</html>

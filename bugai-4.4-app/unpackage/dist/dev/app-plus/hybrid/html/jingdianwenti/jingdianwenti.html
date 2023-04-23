@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>timeline design using css 3</title>
+		
+		<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700i" rel="stylesheet">
+		<link rel="stylesheet" href="diergeyingyong.css">
+		<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/css/swiper.min.css"> -->
+		<script src="disangeyingyong.js"></script>
+		<!-- <script src="https://code.5g-o.com/wp-content/uploads/2020/04/google-jquery-2.js"></script> -->
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+
+			body {
+				font-family: 'Roboto Condensed', sans-serif;
+				font-size: 14px;
+			}
+
+			.container {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				background-color: #fff;
+				flex-direction: column;
+			}
+
+
+
+			.timeline {
+				width: 100%;
+				background-color: #fff;
+				box-shadow: 0 5px 25px 5px rgba(0, 0, 0, .2);
+			}
+
+			.timeline .swiper-container {
+				height: 100vh;
+				width: 100%;
+				position: relative;
+			}
+
+			.timeline .swiper-wrapper {
+				/* 缓动效果 */
+				transition: 2s cubic-bezier(0.68, -0.4, 0.27, 1.34) 0.2s;
+			}
+
+			.timeline .swiper-slide {
+				/* 这里是改变左边文案 */
+				position: relative;
+				color: #ffffff;
+				overflow: hidden;
+				background-size: cover;
+				background-repeat: no-repeat;
+				background-position: center center;
+
+			}
+
+			.timeline .swiper-slide::after {
+				content: "";
+				position: absolute;
+				z-index: 1;
+				right: -115%;
+				bottom: -10%;
+				width: 100%;
+				height: 100%;
+				background-color: rgba(0, 0, 0, .7);
+				box-shadow: -230px 0 150px 60vw rgba(0, 0, 0, .7);
+				border-radius: 100%;
+			}
+
+			.timeline .swiper-slide-content {
+				position: absolute;
+				text-align: center;
+				width: 80%;
+				/* 这里的max-width是更改左边文案整体的宽度的最大值 */
+				max-width: 930px;
+				right: 50%;
+				top: 13%;
+				transform: translate(50%, 0);
+				font-size: 15px;
+				z-index: 2;
+			}
+
+			.timeline .swiper-slide .timeline-year {
+				display: block;
+				/* 这里也是可以调整橙色的标题字体大小 */
+				font-size: 80px !important;
+				margin-bottom: 50px;
+				transform: translate3d(20px, 0, 0);
+				color: orange;
+				font-style: italic;
+				font-weight: 300;
+				opacity: 0;
+				transition: 0.2s ease 0.4s;
+			}
+
+			.timeline .swiper-slide .timeline-title {
+				font-weight: 800;
+				font-size: 54px !important;
+				margin: 0 0 30px;
+				opacity: 0;
+				transform: translate3d(20px, 0, 0);
+				transition: 0.2s ease 0.5s;
+			}
+
+			.timeline .swiper-slide .timeline-text {
+				line-height: 1.8;
+				opacity: 0;
+				transform: translate3d(20px, 0, 0);
+				transition: 0.2s ease 0.6s;
+				/* 左边文案文章字体大小 */
+				font-size: 35px;
+			}
+
+			.timeline .swiper-slide-active .timeline-year {
+				opacity: 1;
+				transform: translate3d(0, 0, 0);
+				transition: 0.4s ease 1.6s;
+
+			}
+
+			.timeline .swiper-slide-active .timeline-title {
+				opacity: 1;
+				transform: translate3d(0, 0, 0);
+				transition: 0.4s ease 1.7s;
+			}
+
+			.timeline .swiper-slide-active .timeline-text {
+				opacity: 1;
+				transform: translate3d(0, 0, 0);
+				transition: 0.4s ease 1.8s;
+			}
+
+			.timeline .swiper-pagination {
+				/* 这里是改右边时间轴的位置 */
+				right: 15% !important;
+				height: 100%;
+				display: none;
+				flex-direction: column;
+				justify-content: center;
+				font-style: italic;
+				font-weight: 300;
+				/* 这里是时间轴字体大小 */
+				font-size: 40px;
+				z-index: 1;
+			}
+
+			.timeline .swiper-pagination::before {
+				content: "";
+				position: absolute;
+				left: -30px;
+				top: 0;
+				height: 100%;
+				width: 1px;
+				background-color: rgba(255, 255, 255, .2);
+			}
+
+			.timeline .swiper-pagination-bullet {
+				width: auto;
+				height: auto;
+				text-align: center;
+				opacity: 1;
+				background: transparent;
+				color: #d4a024;
+				/* 这里是调节按钮直接的距离 */
+				margin: 30px 0 !important;
+				position: relative;
+			}
+
+			.timeline .swiper-pagination-bullet::before {
+				content: "";
+				position: absolute;
+				top: 8px;
+				left: -32.5px;
+				width: 6px;
+				height: 6px;
+				border-radius: 100%;
+				background-color: #d4a024;
+				transform: scale(0);
+				transition: 0.2s;
+			}
+
+			.timeline .swiper-pagination-bullet-active {
+				color: #d4a024;
+			}
+
+			.timeline .swiper-pagination-bullet-active::before {
+				transform: scale(1);
+			}
+
+			.timeline .swiper-button-next,
+			.timeline .swiper-button-prev {
+				background-size: 20px 20px;
+				top: 15%;
+				width: 20px;
+				height: 20px;
+				margin-top: 0;
+				z-index: 2;
+				transition: 0.2s;
+			}
+
+			.timeline .swiper-button-prev {
+				left: 8%;
+				background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M0%2C22L22%2C0l2.1%2C2.1L4.2%2C22l19.9%2C19.9L22%2C44L0%2C22L0%2C22L0%2C22z'%20fill%3D'%23d4a024'%2F%3E%3C%2Fsvg%3E");
+			}
+
+			.timeline .swiper-button-prev:hover {
+				transform: translateX(-3px);
+			}
+
+			.timeline .swiper-button-next {
+				right: 8%;
+				background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M27%2C22L27%2C22L5%2C44l-2.1-2.1L22.8%2C22L2.9%2C2.1L5%2C0L27%2C22L27%2C22z'%20fill%3D'%23d4a024'%2F%3E%3C%2Fsvg%3E");
+			}
+
+			.timeline .swiper-button-next:hover {
+				transform: translateX(3px);
+			}
+
+			@media screen and (min-width: 768px) {
+				.timeline .swiper-slide::after {
+					right: -30%;
+					bottom: -8%;
+					width: 240px;
+					height: 50%;
+					box-shadow: -230px 0 150px 50vw rgba(0, 0, 0, .7);
+				}
+
+				.timeline .swiper-slide-content {
+					/* 这里的right是更改左边文案的整体位置 */
+					right: 30%;
+					top: 50%;
+					transform: translateY(-50%);
+					/* 这里的width是更改左边文案整体的宽度
+					但是需要先在上面的一个max-width里改最大值 */
+					width: 620px;
+					font-size: 11px;
+					/* 左边文案排列与阴影 */
+					text-align: left;
+					text-shadow: 10px 10px 10px #d4a024;
+				}
+
+				.timeline .swiper-slide .timeline-year {
+					margin-bottom: 0;
+					//这里是橙色标题的字体大小
+					font-size: 80px;
+				}
+
+				.timeline .swiper-slide .timeline-title {
+					font-size: 46px;
+					margin: 0;
+				}
+
+				.timeline .swiper-pagination {
+					display: flex;
+				}
+
+				.timeline .swiper-button-prev {
+					top: 15%;
+					left: auto;
+					right: 15%;
+					transform: rotate(90deg) translate(0, 10px);
+				}
+
+				.timeline .swiper-button-prev:hover {
+					transform: rotate(90deg) translate(-3px, 10px);
+				}
+
+				.timeline .swiper-button-next {
+					top: auto;
+					bottom: 15%;
+					right: 15%;
+					transform: rotate(90deg) translate(0, 10px);
+				}
+
+				.timeline .swiper-button-next:hover {
+					transform: rotate(90deg) translate(3px, 10px);
+				}
+			}
+
+			@media screen and (min-width: 1024px) {
+				.timeline .swiper-slide::after {
+					right: -20%;
+					bottom: -12%;
+					width: 240px;
+					height: 50%;
+					box-shadow: -230px 0 150px 39vw rgba(0, 0, 0, .7);
+				}
+
+				.timeline .swiper-slide-content {
+					right: 25%;
+				}
+			}
+		</style>
+
+	</head>
+	<body>
+		<div class="container">
+
+			<div class="timeline">
+				<div class="swiper-container">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide" style="background-image: url(qy.jpg)" data-year="1">
+							<div class="swiper-slide-content"><span class="timeline-year">赌徒的难题与概率论的诞生</span>
+								<h4 class="timeline-title">赌徒的难题</h4>
+								<p class="timeline-text">
+									最早由法国数学家皮埃尔·德·费尔马在17世纪提出，费马与帕斯卡的通信中关于分赌注问题的讨论被公认为是概率论诞生的标志。</p>
+								<p class="timeline-text">
+									概率论的诞生可以追溯到17世纪，当时欧洲的赌场非常盛行，人们开始对赌博游戏进行研究和分析。赌徒的难题和其他类似的问题引起了数学家们的兴趣，这促使他们发展出了概率论。概率论是一门研究随机现象的数学学科，它可以帮助我们理解事件发生的可能性和概率，从而更好地做出决策。</p>
+								<p class="timeline-text">
+									因此，赌徒的难题可以说是概率论诞生的标志之一，它促进了数学家对随机现象的研究和探索，进而推动了概率论的发展。</p>
+							</div>
+						</div>
+						<div class="swiper-slide" style="background-image: url(sz.jpg)" data-year="2">
+							<div class="swiper-slide-content"><span class="timeline-year">赌徒的难题1</span>
+								<h4 class="timeline-title">当两个赌徒 </h4>
+								<p class="timeline-text">相约进行赌博，并约定谁先获胜n局就赢得赌注时，如果赌徒A获胜了a局（a&lt;n），而赌徒B获胜了b局（b&lt;n），那么赌博将被迫中止。现在需要确定如何分配这些赌注，使得分配方案公平合理。</p>
+								<p class="timeline-text">历史上，费马和帕斯卡分别提出了自己的方法来解决这个问题。费马的方法将赌博最多还需几局得出胜负分为了四种情况，而帕斯卡则认为，若再掷一次A胜则A获全部赌注，B胜则A与B平分赌注的可能性相同。随后，惠根斯也提出了自己的方法，奠定了古典概率的基础。</p>
+								<p class="timeline-text">使用数学的语言描述，假设赌徒A获胜的概率为p，赌徒B获胜的概率为1-p。在第n局比赛之前，赌徒A已经赢得了a局，赌徒B已经赢得了b局。因此，在接下来的n-(a+b)局比赛中，赌徒A需要赢得n-a局才能获胜，赌徒B需要赢得n-b局才能获胜。通过计算概率和数学期望，可以确定公平合理的赌注分配方案。</p>
+							</div>
+						</div>
+						<div class="swiper-slide" style="background-image: url(pkp.jpg)" data-year="3">
+							<div class="swiper-slide-content"><span class="timeline-year">赌徒的难题2</span>
+								<h4 class="timeline-title">假设一个赌徒</h4>
+								<p class="timeline-text">在一个公平的赌场里玩一个公平的赌博游戏，每一次下注都是相同的，且每一次下注都是独立的。如果赌徒赢了，他的赌注会翻倍；如果他输了，他会损失所有的赌注。赌徒开始的赌注为 X 元，他的目标是在连续 N 次下注后，赚到至少 Y 元。</p>
+								<p class="timeline-text">赌徒应该在赢得 K 次后停止赌博，还是继续赌博以获得更高的收益。直觉上，赌徒可能认为赢得越多，继续赌博的收益就越高。但是，这个想法是错误的。实际上，赌徒在连续的赌博中获胜的概率是相同的，不受之前赌博的结果的影响。</p>
+								<p class="timeline-text">因此，赌徒在连续赌博中赢得 K 次的概率可以通过二项分布来计算，这也是概率论的一个重要应用。</p>
+							</div>
+						</div>
+						<div class="swiper-slide" style="background-image: url(bnl.jpg)" data-year="4">
+							<div class="swiper-slide-content"><span class="timeline-year">伯努利实验</span>
+								<h4 class="timeline-title">伯努利实验</h4>
+								<p class="timeline-text">是指一种只有两种可能结果的实验，重复进行，每次试验独立，并且成功的概率保持不变，比如抛一枚硬币、掷一颗骰子等。</p>
+								<p class="timeline-text">这种实验在概率论中是非常重要的，因为它可以帮助我们理解概率的基本概念和原理，比如事件的互斥性、独立性和概率的加法和乘法原理等。</p>
+							</div>
+						</div>
+						<div class="swiper-slide" style="background-image: url(gcwt.jpg)" data-year="5">
+							<div class="swiper-slide-content"><span class="timeline-year">归巢问题</span>
+								<h4 class="timeline-title">假设有n个鸟巢和n个鸟</h4>
+								<p class="timeline-text">每个鸟随机选择一个鸟巢来落脚。如果每个鸟恰好落在不同的鸟巢中，则称这个问题具有完美匹配。问题是，当n个鸟随机落脚时，它们落在不同鸟巢中的概率是多少？</p>
+								<p class="timeline-text">可以用排列组合方法求解，首先有n种选择来选出第一个鸟巢，第一个鸟只能选择其中一个鸟巢，第二个鸟只有n-1个鸟巢可供选择，以此类推。根据乘法原理，n个鸟落在不同鸟巢的概率为P(n) = n!/n^n。当n趋向于无穷大时，这个概率趋近于1/e（e是自然对数的底数）。</p>
+								<p class="timeline-text">在归巢问题中，我们可以使用期望值和方差来衡量鸟落脚情况的分布。设X为落在原本的鸟巢的鸟的数量，则X服从均值为n/e、方差为n(1-1/e)的泊松分布。这个结果可以用数学方法证明，或者通过模拟实验来验证。</p>
+								<p class="timeline-text">归巢问题是概率论中的一个经典问题，它涉及到了概率、期望值、方差等基本概念，也是理解概率分布和统计推断的基础。</p>
+							</div>
+						</div>
+						<div class="swiper-slide" style="background-image: url(mtkl.jpg)" data-year="6">
+							<div class="swiper-slide-content"><span class="timeline-year">蒙特卡罗方法</span>
+								<h4 class="timeline-title">蒙特卡罗方法</h4>
+								<p class="timeline-text">是一种基于随机抽样的计算方法，它用于求解无法用解析方法求解的问题，例如计算复杂的积分或概率。</p>
+								<p class="timeline-text">这个方法的名字来源于摩纳哥的蒙特卡罗赌场，因为它使用的是随机数生成器。蒙特卡罗方法通过随机抽样来生成数据点，然后根据这些数据点来计算概率或积分。</p>
+								<p class="timeline-text">一个简单的例子是求圆的面积。我们可以在一个正方形内部画一个圆，然后随机生成一些点，判断这些点是否在圆内。通过这种方式，我们可以得到圆内点的数量和总点的数量，从而估算出圆的面积。</p>
+							</div>
+						</div>
+						<div class="swiper-slide" style="background-image: url(3door.jpg)" data-year="7">
+							<div class="swiper-slide-content"><span class="timeline-year">蒙提霍尔问题</span>
+								<h4 class="timeline-title">蒙提霍尔问题又称为三门问题</h4>
+								<p class="timeline-text">这个问题源于电视游戏节目《Let's Make a Deal》中的一个游戏，由主持人蒙提霍尔发明。</p>
+								<p class="timeline-text">在游戏中，有三扇门，其中一个门后面有一辆汽车，其余两扇门后面则是山羊。参赛者需要选择其中一扇门，如果选中汽车，就可以把汽车带回家。但是，在参赛者选择门之后，主持人会打开其中一扇有山羊的门，并问参赛者是否想改变选择。</p>
+								<p class="timeline-text">问题是，改变选择是否能提高获胜的概率呢？答案是可以，因为改变选择的话，获胜概率将从最初的1/3提高到2/3。这个问题与概率论的关系在于，通过分析每个事件的概率，可以帮助我们做出更明智的决策。</p>
+							</div>
+						</div>
+						<div class="swiper-slide" style="background-image: url(pz.jpg)" data-year="8">
+							<div class="swiper-slide-content"><span class="timeline-year">瓶子问题</span>
+								<h4 class="timeline-title">瓶子问题是一个基于贝叶斯定理的问题</h4>
+								<p class="timeline-text">假设有两个瓶子，一个标记为"A"，另一个标记为"B"，每个瓶子中有许多不同颜色的球。从瓶子"A"中取出一个球的概率为70%，从瓶子"B"中取出一个球的概率为30%。如果从选定的瓶子中取出一个红球，那么这个球来自于哪个瓶子的概率是多少？</p>
+								<p class="timeline-text">这个问题可以用贝叶斯定理来回答。贝叶斯定理是一种用于在给定先验信息的情况下，根据新信息来更新概率的方法。</p>
+							</div>
+						</div>
+						<div class="swiper-slide" style="background-image: url(srbl.jpg)" data-year="9">
+							<div class="swiper-slide-content"><span class="timeline-year">生日悖论</span>
+								<h4 class="timeline-title">生日悖论</h4>
+								<p class="timeline-text">是指在一个房间里有多少人，才能让两个人生日相同的概率超过50%。人们往往低估这个概率，但实际上，只需要23个人就可以让概率超过50%。这是因为在23个人中，有253种不同的生日组合，而只有1种组合是所有人的生日都不相同的。</p>
+								<p class="timeline-text">因此，概率论可以帮助我们理解看似不太可能发生的事件其实可能发生的概率有多大。</p>
+							</div>
+						</div>
+						<div class="swiper-slide" style="background-image: url(sjyz.jpg)" data-year="10">
+							<div class="swiper-slide-content"><span class="timeline-year">随机游走</span>
+								<h4 class="timeline-title">随机游走也是概率论中的一个重要概念</h4>
+								<p class="timeline-text">它指的是在一个随机环境中，物体沿着随机方向运动的过程。</p>
+								<p class="timeline-text">在随机游走的过程中，物体的运动路径是不确定的，但是我们可以根据概率来估算它到达某个位置的可能性。这个过程被广泛应用于统计学、物理学、生态学等领域中的建模和预测。一个经典的例子就是布朗运动，也称为布朗粒子运动，它描述了一种随机游走的过程，被广泛应用于物理学和金融学中的股票价格预测。</p>
+							</div>
+						</div>
+					</div>
+					<div class="swiper-button-prev"></div>
+					<div class="swiper-button-next"></div>
+					<div class="swiper-pagination"></div>
+				</div>
+			</div>
+		</div>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/js/swiper.min.js"></script>
+		<script>
+			$(function() {
+
+				var timelineSwiper = new Swiper('.timeline .swiper-container', {
+					direction: 'vertical',
+					loop: false,
+					speed: 1600,
+					pagination: '.swiper-pagination',
+					paginationBulletRender: function(swiper, index, className) {
+						var year = document.querySelectorAll('.swiper-slide')[index].getAttribute(
+							'data-year');
+						return '<span class="' + className + '">' + year + '</span>';
+					},
+					paginationClickable: true,
+					nextButton: '.swiper-button-next',
+					prevButton: '.swiper-button-prev',
+					breakpoints: {
+						768: {
+							direction: 'horizontal',
+						}
+					}
+				});
+
+
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,1 @@
+<view class="content"><image class="title" src="../../static/登录.png" mode="aspectFit"></image><view class="content2"><input class="in" placeholder="User name"/><input class="in" password="true" placeholder="Password"/><button class="bt1">登录</button><button class="bt2" plain="true">我还没有账号</button></view></view>

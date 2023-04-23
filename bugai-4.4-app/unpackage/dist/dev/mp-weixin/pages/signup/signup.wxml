@@ -1,0 +1,1 @@
+<view class="content"><image class="title" src="../../static/注册.png" mode="aspectFit"></image><view class="content2"><input class="in" placeholder="User name"/><input class="in" password="true" placeholder="Password"/><button class="bt1">注册账号</button><button class="bt2" plain="true">已经有一个账号</button></view></view>

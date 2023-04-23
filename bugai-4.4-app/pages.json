@@ -1,0 +1,635 @@
+{
+	"easycom": {
+		"^u-(.*)": "@/uni_modules/uview-ui/components/u-$1/u-$1.vue"
+	},
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/signup/index",
+			"style": {
+				"transparentTitle": "always",
+				"navigationBarTitleText": "",
+				"navigationBarBackgroundColor": "#4756DF"
+			}
+		},
+		{
+			"path": "pages/signup/login",
+			"style": {
+				"navigationBarTitleText": "登录页面",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/signup/welcome",
+			"style": {
+				"backgroundColor": "#4756df",
+				"titleNView": false
+			}
+		},
+		{
+			"path": "pages/signup/signup",
+			"style": {
+				"navigationBarTitleText": "注册页面",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/signup/forget",
+			"style": {
+				"navigationBarTitleText": "找回密码",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/home/bbs",
+			"style": {
+				"transparentTitle": "always",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/home/my",
+			"style": {
+				"navigationBarTitleText": "我的",
+				// "navigationStyle":"custom"
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/Experiment/ch1",
+			"style": {
+				"navigationBarTitleText": "随机实验与概率",
+				"navigationBarBackgroundColor": "#609df8",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/Experiment/select",
+			"style": {
+				"navigationBarTitleText": "概率论实验",
+				"navigationBarBackgroundColor": "#30242a",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/game/select",
+			"style": {
+				"navigationBarTitleText": "概率论趣味游戏",
+				"navigationBarTextStyle":"black",
+				"navigationBarBackgroundColor": "#e5e5e5",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/game/g1",
+			"style": {
+				"navigationBarTitleText": "概率论趣味游戏",
+				"navigationBarTextStyle":"black",
+				"navigationBarBackgroundColor": "#e5e5e5",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/game/g2",
+			"style": {
+				"navigationBarTitleText": "概率论趣味游戏",
+				"navigationBarTextStyle":"black",
+				"navigationBarBackgroundColor": "#e5e5e5",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/game/g3",
+			"style": {
+				"navigationBarTitleText": "概率论趣味游戏",
+				"navigationBarTextStyle":"black",
+				"navigationBarBackgroundColor": "#e5e5e5",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/card/select",
+			"style": {
+				"navigationBarTitleText": "记忆卡片",
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor": "#FFBE21",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/knowledge/select",
+			"style": {
+				"navigationBarTitleText": "知识扩展",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#ffffff",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/exam/select",
+			"style": {
+				"navigationBarTitleText": "概率题库",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#ffffff",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/test/test",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		},
+		{
+			"path": "pages/test/test2",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		},
+		{
+			"path": "components/pailiezuhe/pailiezuhe",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		},
+		{
+			"path": "pages/Experiment/ch2",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/Experiment/ch3",
+			"style": {
+				"navigationBarTitleText": "期望与方差",
+				"enablePullDownRefresh": false
+			}
+
+		},
+		{
+			"path": "pages/Experiment/ch4",
+			"style": {
+				"navigationBarTitleText": "事件运算关系 ",
+				"enablePullDownRefresh": false
+			}
+		
+		},
+		{
+			"path": "pages/Experiment/ch5",
+			"style": {
+				"navigationBarTitleText": "05 排列组合",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/Experiment/ch6",
+			"style": {
+				"navigationBarTitleText": "二项分布 ",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/Experiment/ch7",
+			"style": {
+				"navigationBarTitleText": "泊松分布",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/Experiment/ch8",
+			"style": {
+				"navigationBarTitleText": "正态分布",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/Experiment/ch9",
+			"style": {
+				"navigationBarTitleText": "置信区间问题1",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/Experiment/ch10",
+			"style": {
+				"navigationBarTitleText": "置信区间问题",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/Experiment/ch11",
+			"style": {
+				"navigationBarTitleText": "保险公司盈利问题",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/HtmlExperiment/HtmlExperiment",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, 
+		{
+			"path": "pages/HtmlCard/one",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, 
+		{
+			"path": "pages/HtmlTimeLine/HtmlTimeLine",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path":"pages/knowledge/history",
+			"style": {
+				"navigationBarTitleText": "概率论时间表",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#ffffff",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path":"pages/knowledge/classicalproblem",
+			"style": {
+				"navigationBarTitleText": "概率论经典问题",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#ffffff",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path":"pages/home/guanggao",
+			"style": {
+				"navigationBarTitleText": "概率论经典问题",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#ffffff",
+				"enablePullDownRefresh": false
+			}
+		}
+	    ,{
+            "path" : "pages/signup/email",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/lunbotu/test",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/lunbotu/tiaozhuang/one",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/lunbotu/tiaozhuang/two",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/lunbotu/tiaozhuang/three",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/lunbotu/tiaozhuang/four",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/examination/exam_list",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "题库",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/examination/one/one",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/examination/jiexi/jiexi",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/helpDocument/helpDocument",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/timeLine/timeLine",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/HtmlCard/two",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/HtmlCard/three",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/HtmlCard/four",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/HtmlCard/five",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/HtmlCard/six",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/HtmlCard/seven",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/test/shaizitest",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": true
+            }
+            
+        }
+        ,{
+            "path" : "pages/Experiment/ch12",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "生日问题",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/Experiment/ch8_p",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "点估计",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/HtmlCard/touzheng",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "浦丰投针实验",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/luntan/luntan",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": true
+            }
+            
+        }
+        ,{
+            "path" : "pages/experimental/test",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/experimental/zhixiangqujian",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/home/luntan",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/luntan/message",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/message/message",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/luntan/addNote",
+			
+			"style": {
+				"enablePullDownRefresh": true,
+				"navigationBarTitleText": "",
+				// "navigationStyle":"custom"
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+            
+        }
+        ,{
+            "path" : "pages/luntan/details",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": true
+            }
+            
+        }
+        ,{
+            "path" : "pages/teamInfo/teamInfo",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/HtmlCard/bosongfenbu",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/appUpdate/appUpdate",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/appUpdate/updateLoge",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/myDynamic/myDynamic",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": true
+            }
+            
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#4756DF",
+		"backgroundColor": "#b0b0b0"
+	},
+	"uniIdRouter": {
+
+	},
+	"tabBar": {
+		"list": [{
+				"text": "发现",
+				"pagePath": "pages/home/bbs",
+				"iconPath": "static/icon/bbs.png",
+				"selectedIconPath": "static/icon/bbs.png"
+			},
+			{
+				"text": "首页",
+				"pagePath": "pages/signup/welcome",
+				"iconPath": "static/icon/home.png",
+				"selectedIconPath": "static/icon/home.png"
+			},
+			{
+				"text": "我的",
+				"pagePath": "pages/home/my",
+				"iconPath": "static/icon/my.png",
+				"selectedIconPath": "static/icon/my.png"
+			}
+		]
+	},
+	"condition" : { //模式配置，仅开发期间生效
+		"current": 0, //当前激活的模式(list 的索引项)
+		"list": [
+			{
+				"name": "", //模式名称
+				"path": "", //启动页面，必选
+				"query": "" //启动参数，在页面的onLoad函数里面得到
+			}
+		]
+	}
+}

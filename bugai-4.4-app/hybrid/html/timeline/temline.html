@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
+    
+    
+ <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700i" rel="stylesheet">
+
+    <style>
+    
+        *{
+            margin: 0;
+            padding: 0;
+        }
+.timeline {
+  display: flex;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  flex-direction: column;
+  max-width: 700px;
+  position: relative;
+}
+.timeline__content-title {
+  font-weight: normal;
+  font-size: 66px;
+  margin: -10px 0 0 0;
+  transition: 0.4s;
+  padding: 0 10px;
+  box-sizing: border-box;
+  font-family: 'Oswald', sans-serif;
+  color: #fff;
+}
+.timeline__content-desc {
+  margin: 0;
+  font-size: 15px;
+  box-sizing: border-box;
+  color: rgba(255, 255, 255, .7);
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: normal;
+  line-height: 25px;
+}
+.timeline:before {
+  position: absolute;
+  left: 50%;
+  width: 2px;
+  height: 100%;
+  margin-left: -1px;
+  content: "";
+  background: rgba(255, 255, 255, .07);
+}
+@media only screen and (max-width: 767px) {
+  .timeline:before {
+    left: 40px;
+  }
+}
+.timeline-item {
+  padding: 40px 0;
+  opacity: 0.3;
+  filter: blur(2px);
+  transition: 0.5s;
+  box-sizing: border-box;
+  width: calc(50% - 40px);
+  display: flex;
+  position: relative;
+  transform: translateY(-80px);
+}
+.timeline-item:before {
+  content: attr(data-text);
+  letter-spacing: 3px;
+  width: 100%;
+  position: absolute;
+  color: rgba(255, 255, 255, .5);
+  font-size: 13px;
+  font-family: 'Pathway Gothic One', sans-serif;
+  border-left: 2px solid rgba(255, 255, 255, .5);
+  top: 70%;
+  margin-top: -5px;
+  padding-left: 15px;
+  opacity: 0;
+  right: calc(-100% - 56px);
+}
+.timeline-item:nth-child(even) {
+  align-self: flex-end;
+}
+.timeline-item:nth-child(even):before {
+  right: auto;
+  text-align: right;
+  left: calc(-100% - 56px);
+  padding-left: 0;
+  border-left: none;
+  border-right: 2px solid rgba(255, 255, 255, .5);
+  padding-right: 15px;
+}
+.timeline-item--active {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0px);
+}
+.timeline-item--active:before {
+  top: 50%;
+  transition: 0.3s all 0.2s;
+  opacity: 1;
+}
+.timeline-item--active .timeline__content-title {
+  margin: -50px 0 20px 0;
+}
+@media only screen and (max-width: 767px) {
+  .timeline-item {
+    align-self: baseline !important;
+    width: 100%;
+    padding: 0 30px 150px 80px;
+  }
+  .timeline-item:before {
+    left: 10px !important;
+    padding: 0 !important;
+    top: 50px;
+    text-align: center !important;
+    width: 60px;
+    border: none !important;
+  }
+  .timeline-item:last-child {
+    padding-bottom: 40px;
+  }
+}
+.timeline__img {
+  max-width: 100%;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, .4);
+}
+.timeline-container {
+  width: 100%;
+  position: relative;
+  padding: 80px 0;
+  transition: 0.3s ease 0s;
+  background-attachment: fixed;
+  background-size: cover;
+}
+.timeline-container:before {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+ background: rgba(0,0,0,0.6);
+  content: "";
+}
+.timeline-header {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 80px;
+  position: relative;
+}
+.timeline-header__title {
+  color: #fff;
+  font-size: 58px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: normal;
+  margin: 0;
+}
+.timeline-header__subtitle {
+  color: rgba(255, 255, 255, .5);
+  font-family: 'Pathway Gothic One', sans-serif;
+  font-size: 16px;
+  letter-spacing: 5px;
+  margin: 10px 0 0 0;
+  font-weight: normal;
+}
+.demo-footer {
+  padding: 60px 0;
+  text-align: center;
+}
+.demo-footer a {
+  color: #999;
+  display: inline-block;
+  font-family: Cardo;
+}
+
+    </style>
+</head>
+<body>
+     <div class="timeline-container" id="timeline-1">
+  <div class="timeline-header">
+    <h2 class="timeline-header__title">概率论年表</h2>
+    <h3 class="timeline-header__subtitle">大道五十,天衍四九,遁去其一</h3>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item" data-text="上帝不掷骰子   —爱因斯坦">
+      <div class="timeline__content"><img class="timeline__img" src="1.jpg" />
+        <h2 class="timeline__content-title">伊始</h2>
+        <p class="timeline__content-desc">近似于骰子的玩具在公元前 5000 年的遗址中出土；人口调查在公元前 2700 年已进行；</p>
+      </div>
+    </div>
+    <div class="timeline-item" data-text="巧合是上帝默默操控世界的方式">
+      <div class="timeline__content"><img class="timeline__img" src="2.jpg"/>
+        <h2 class="timeline__content-title">1494</h2>
+        <p class="timeline__content-desc">1494年 意大利数学家帕乔利出版《算术、几何、比与比例集成》,内有“点数问题”</p>
+      </div>
+    </div>
+    <div class="timeline-item" data-text="运伟大之思者，必行伟大之迷途">
+      <div class="timeline__content"><img class="timeline__img" src="3.jpg"/>
+        <h2 class="timeline__content-title">1654</h2>
+        <p class="timeline__content-desc">卡尔达诺(1539)塔塔利亚(1556)伽利略(1642)均讨论过"点数问题",最后于1654年,帕斯卡与费马通信，两人用不同方法都正确解答了“点数问题”,这标志概率论诞生</p>
+      </div>
+    </div>
+    <div class="timeline-item" data-text="知识有两种，一种是你知道的，一种是你知道在哪里找到的">
+      <div class="timeline__content"><img class="timeline__img" src="4.jpg"/>
+        <h2 class="timeline__content-title">1662</h2>
+        <p class="timeline__content-desc">1662年 英国格朗特发表《根据死亡公告作的自然和政治的观察》,开创统计学新时代.
+        </p>
+      </div>
+    </div>
+    <div class="timeline-item" data-text="生命如同寓言，其价值不在于长短，而在于内容">
+      <div class="timeline__content"><img class="timeline__img" src="5.jpg"/>
+        <h2 class="timeline__content-title">1669</h2>
+        <p class="timeline__content-desc">1669年 惠更斯根据格朗特著作构造了一根死亡率曲线,开创应用概率论于人口统计.</p>
+      </div>
+    </div>
+    <div class="timeline-item" data-text="我们把世界看错，反说它欺骗了我们">
+      <div class="timeline__content"><img class="timeline__img" src="6.jpg".jpg"/>
+        <h2 class="timeline__content-title">1733</h2>
+        <p class="timeline__content-desc">1733年 棣莫弗导出正态曲线,提出最初的“中心极限定理”.</p>
+      </div>
+    </div>
+    <div class="timeline-item" data-text="我们的科学永远只是找到近似真理">
+      <div class="timeline__content"><img class="timeline__img" src="7.jpg"/>
+        <h2 class="timeline__content-title">1805</h2>
+        <p class="timeline__content-desc">1805年 勒让德发表论文“确定彗星轨道的新方法”,提出最小二乘法.</p>
+      </div>
+    </div>
+    <div class="timeline-item" data-text="才力应难夸数公,凡今谁是出群雄">
+      <div class="timeline__content"><img class="timeline__img" src="8.jpg"/>
+        <h2 class="timeline__content-title">1851</h2>
+        <p class="timeline__content-desc">
+          1851年 第一届国际统计会议在布鲁塞尔召开.
+        </p>
+      </div>
+    </div>
+    <div class="timeline-item" data-text="明月也不曾记得，它曾点亮世界">
+      <div class="timeline__content"><img class="timeline__img" src="9.jpg"/>
+        <h2 class="timeline__content-title">1869</h2>
+        <p class="timeline__content-desc">1869年 高尔顿出版《遗传基因》,开创生物统计研究,引进相关和回归,创用中位数,百分位数.</p>
+      </div>
+    </div>
+    <div class="timeline-item" data-text="你可以期待太阳从东方升起，而风却随心所欲地从四面八方吹来">
+      <div class="timeline__content"><img class="timeline__img" src="10.jpg"/>
+        <h2 class="timeline__content-title">1893</h2>
+        <p class="timeline__content-desc">1893年 皮尔逊第一次使用术语“矩”,引进“标准差”术语和记号σ，又在一次演讲中命名高斯曲线为“正态分布”，
+        </p>
+      </div>
+    </div>
+    <div class="timeline-item" data-text="科学家不是依赖于个人的思想，而是综合了几千人的智慧，所有的人想一个问题，并且每人做它的部分工作，添加到正建立起来的伟大知识大厦之中">
+      <div class="timeline__content"><img class="timeline__img" src="11.jpg"/>
+        <h2 class="timeline__content-title">1923-1927</h2>
+        <p class="timeline__content-desc">
+          量子力学建立：
+          1925年 海森伯提出矩阵力学.<br>
+          1926年 薛定谔提出波动方程.<br>
+          1926年 玻恩提出概率诠释.<br>
+          1927年 海森伯提出测不准关系式.</p>
+      </div>
+    </div>
+    <div class="timeline-item" data-text="观天之道，执天之行">
+      <div class="timeline__content"><img class="timeline__img" src="12.jpg"/>
+        <h2 class="timeline__content-title">1933</h2>
+        <p class="timeline__content-desc">1933年 科尔莫戈罗夫出版《概率论基础》.        </p>
+      </div>
+    </div>
+    <div class="timeline-item" data-text="判天地之美，析万物之理">
+      <div class="timeline__content"><img class="timeline__img" src="13.jpg"/>
+        <h2 class="timeline__content-title">1950</h2>
+        <p class="timeline__content-desc">
+          1950年 费勒《概率论及其应用》第一卷出版.</p>
+      </div>
+    </div>
+  <div style="margin-top: 1000px;"></div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+ <script>
+    
+    (function($) {
+  $.fn.timeline = function() {
+    var selectors = {
+      id: $(this),
+      item: $(this).find(".timeline-item"),
+      activeClass: "timeline-item--active",
+      img: ".timeline__img"
+    };
+    selectors.item.eq(0).addClass(selectors.activeClass);
+    selectors.id.css(
+      "background-image",
+      "url(" +
+        selectors.item
+          .first()
+          .find(selectors.img)
+          .attr("src") +
+        ")"
+    );
+    var itemLength = selectors.item.length;
+    $(window).scroll(function() {
+      var max, min;
+      var pos = $(this).scrollTop();
+      selectors.item.each(function(i) {
+        min = $(this).offset().top;
+        max = $(this).height() + $(this).offset().top;
+        var that = $(this);
+        if (i == itemLength - 2 && pos > min + $(this).height() / 60) {
+          selectors.item.removeClass(selectors.activeClass);
+          selectors.id.css(
+            "background-image",
+            "url(" +
+              selectors.item
+                .last()
+                .find(selectors.img)
+                .attr("src") +
+              ")"
+          );
+          selectors.item.last().addClass(selectors.activeClass);
+        } else if (pos <= max - 100 && pos >= min) {
+          selectors.id.css(
+            "background-image",
+            "url(" +
+              $(this)
+                .find(selectors.img)
+                .attr("src") +
+              ")"
+          );
+          selectors.item.removeClass(selectors.activeClass);
+          $(this).addClass(selectors.activeClass);
+        }
+      });
+    });
+  };
+})(jQuery);
+
+$("#timeline-1").timeline();
+
+    </script>
+</body>
+</html>

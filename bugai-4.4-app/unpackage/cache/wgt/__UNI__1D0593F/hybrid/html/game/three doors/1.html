@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" /> 
+    <title>Monty Hall Problem</title>
+    <style>
+		//折叠词条
+		.collapsible {
+			cursor: pointer;
+			user-select: none;
+			background-color: #eee;
+			padding: 10px;
+			border: none;
+			outline: none;
+			text-align: left;
+			font-size: 18px;
+			width: 100%;
+		}
+		
+		.active, .collapsible:hover {
+			background-color: #ccc;
+		}
+		
+		.content {
+			padding: 0 10px;
+			overflow: hidden;
+			background-color: #f1f1f1;
+			max-height: 0;
+			transition: max-height 0.2s ease-out;
+		}
+		
+		.active + .content {
+			max-height: 500px;
+		}
+		
+      body {
+        background-color:#ADD8E6;;
+        font-family: "Helvetica Neue", sans-serif;
+        font-size: 16px;
+        color: #333;
+        line-height: 1.5;
+        margin: 0;
+        padding: 0;
+      }
+
+      header {
+        background-color: #333;
+        color: #fff;
+        padding: 1rem;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: normal;
+		color: rgb(237, 109, 0);
+      }
+
+      main {
+        padding: 1rem;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+      }
+
+      input[type="radio"] {
+        margin-right: 0.5rem;
+      }
+
+      button {
+        display: block;
+        margin: 1rem auto 0;
+        padding: 0.5rem 1rem;
+        background-color: #333;
+        color: #fff;
+        border: none;
+        border-radius: 0.25rem;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #666;
+      }
+      
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+      
+      .modal-content {
+        background-color: #fff;
+        margin: 10% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 50%;
+        text-align: center;
+      }
+
+      #result {
+        margin-top: 1rem;
+        font-weight: bold;
+      }
+      img {
+        max-width: 100%;
+      }
+      .door-container {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1rem;
+      }
+      .door {
+        width: 33.33%;
+      }
+	  .p{
+		  color: #333333;
+	  }
+	  /* 模态框样式 */
+	  .modal {
+	    display: none;
+	    position: fixed;
+	    z-index: 1;
+	    left: 0;
+	    top: 0;
+	    width: 100%;
+	    height: 100%;
+	    overflow: auto;
+	    background-color: rgba(0,0,0,0.4);
+	  }
+	  
+	  /* 模态框内容 */
+	  .modal-content {
+	    background-color: #fefefe;
+	    margin: auto;
+	    padding: 20px;
+	    border: 1px solid #888;
+	    width: 50%;
+	    max-width: 800px;
+	    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	    text-align: center;
+	  }
+	  
+	  /* 关闭按钮 */
+	  .close {
+	    color: #aaa;
+	    float: right;
+	    font-size: 28px;
+	    font-weight: bold;
+	  }
+	  
+	  .close:hover,
+	  .close:focus {
+	    color: black;
+	    text-decoration: none;
+	    cursor: pointer;
+	  }
+	  .modal2 {
+	  	display: none; /* 隐藏模态框 */
+	  	position: fixed;
+	  	z-index: 1;
+	  	left: 0;
+	  	top: 0;
+	  	width: 100%;
+	  	height: 100%;
+	  	overflow: auto;
+	  	background-color: rgba(0,0,0,0.4);
+	  	padding-top: 60px;
+	  }
+	  
+	  .modal2-content {
+	  	background-color: #fefefe;
+	  	margin: auto;
+	  	padding: 20px;
+	  	border: 1px solid #888;
+	  	width: 80%;
+	  }
+	  
+	  .close2 {
+	  	color: #aaaaaa;
+	  	float: right;
+	  	font-size: 28px;
+	  	font-weight: bold;
+	  }
+	  
+	  .close2:hover,
+	  .close2:focus {
+	  	color: #000;
+	  	text-decoration: none;
+	  	cursor: pointer;
+	  }
+    </style>
+	<style>
+	/* 模态框样式 */
+	.modal {
+	  display: none; /* 默认隐藏 */
+	  position: fixed; /* 固定定位 */
+	  z-index: 1; /* 使其位于其他元素上方 */
+	  left: 0;
+	  top: 0;
+	  width: 100%;
+	  height: 100%;
+	  overflow: auto;
+	  background-color: rgba(0,0,0,0.5); /* 半透明黑色背景 */
+	}
+	
+	/* 模态框内容样式 */
+	.modal-content {
+	  background-color: #fff; /* 白色背景 */
+	  border-radius: 5px; /* 圆角边框 */
+	  margin: 15% auto; /* 居中显示 */
+	  padding: 20px;
+	  max-width: 90%; /* 最大宽度为90% */
+	}
+	
+	/* 关闭按钮样式 */
+	.close {
+	  color: #aaa;
+	  float: right;
+	  font-size: 28px;
+	  font-weight: bold;
+	}
+	
+	.close:hover,
+	<div id="result"></div>
+			      <div id="dialog"></div>
+	.close:focus {
+	  color: #000;
+	  text-decoration: none;
+	  cursor: pointer;
+	}
+	
+	/* 手机端样式 */
+	@media only screen and (max-width: 600px) {
+	  .modal-content {
+	    margin: 30% auto; /* 调整上下边距 */
+	    font-size: 16px; /* 调整字体大小 */
+	    line-height: 1.5; /* 调整行高 */
+	    padding: 10px;
+	  }
+	}
+	.modal1 {
+  display: none; /* 隐藏弹窗 */
+  position: fixed; /* 固定定位 */
+  z-index: 1; /* 设定显示层级 */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; /* 允许页面滚动 */
+  background-color: rgba(0,0,0,0.4); /* 设置背景色 */
+}
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 600px;
+}
+
+	</style>
+	
+  </head>
+	  <body>
+		<header>
+		  <h1>蒙提霍尔问题(Monty Hall Problem)</h1>
+		</header>
+		<main>
+			
+<button class="collapsible">历史由来</button>
+<div class="content">
+	<p style="font-family: 'Helvetica Neue', sans-serif; color: #666;">三门问题是一个著名的概率谜题，它源于美国电视节目《Let's Make a Deal》中的一个游戏环节。</p>
+	      <p style="font-family: 'Helvetica Neue', sans-serif; color: #666;">假设你参加一个游戏节目，面前有三扇关闭的门，其中一扇后面有一辆汽车，另外两扇后面是山羊。你选定其中一扇门，但在开启它之前，主持人会打开另外两扇门中的一扇，露出其中一头山羊。主持人知道各扇门后面是什么，并且会选择一个有山羊的门来打开。主持人现在问你是否要更改选择，换另外一扇门才能获得后面的汽车。</p>
+	
+</div>
+		  <p>请选一扇门：<span id="chosen-door"></span></p>
+		  <div class="door-container">
+			<div class="door">
+			  <img src="./24gl-door (1).png" alt="Door 1" onclick="chooseDoor(0)" height="100">
+			</div>
+			<div class="door">
+			  <img src="./24gl-door (1).png" alt="Door 2" onclick="chooseDoor(1)"height="100">
+			</div>
+			<div class="door">
+			  <img src="./24gl-door (1).png" alt="Door 3" onclick="chooseDoor(2)"height="100">
+			</div>
+		  </div>
+		  <p>主持人打开了门：<span id="shown-door"></span></p>
+		  <p>最终选择的门：<span id="final-door"></span></p>
+		  <button id="play" onclick="switchDoor()">更换另一扇门</button>
+		  <button id="play" onclick="stayWithDoor()">不换</button>
+		  <!-- 第二个模态框按钮 -->
+		  <button id="refresh-btn" onclick="refresh()">重试一次</button>
+
+		  <button id="myBtn">点击查看原理</button>
+		  <div id="result"></div>
+		  		      <div id="dialog"></div>
+
+		  <!-- 第二个模态框 -->
+		  <div id="myModal2" class="modal2">
+		  	<div class="modal2-content">
+		  		<span class="close2">&times;</span>
+		  		<h1>解释</h1>
+				<p>问题的答案在于换门会使获得汽车的概率提高，这个答案常常会让人感到困惑。原因在于我们的直觉认为两扇门后面汽车的概率各为一半，因此换门不会有任何影响。但是，事实上，一开始选中汽车的概率只有1/3，而另外两扇门合在一起的概率是2/3，而主持人在打开另外一扇门后，只剩下未被选择的一扇门和另外一扇山羊门，那么这扇未被选择的门后面是汽车的概率就是2/3，因此更改选择会使获得汽车的概率从1/3提高到2/3。</p>
+		  		<h1>导图</h1>
+				<img src="door.png">
+		  	</div>
+		  </div>
+</main>	
+	  </body>
+		 <script>
+			 //折叠词条
+			 var coll = document.getElementsByClassName("collapsible");
+			 var i;
+			 
+			 for (i = 0; i < coll.length; i++) {
+			 	coll[i].addEventListener("click", function() {
+			 		this.classList.toggle("active");
+			 		var content = this.nextElementSibling;
+			 		if (content.style.maxHeight){
+			 			content.style.maxHeight = null;
+			 		} else {
+			 			content.style.maxHeight = content.scrollHeight + "px";
+			 		} 
+			 	});
+			 }
+			 function refresh() {
+			   location.reload();
+			 }
+
+			   // 初始化游戏状态
+			   let doors = [0, 0, 0]; // 0 表示门后没有奖品，1 表示门后有奖品
+			   let prizeDoor = Math.floor(Math.random() * 3); // 随机选择一扇门放置奖品
+			   doors[prizeDoor] = 1;
+			   let chosenDoor = -1;
+			   let shownDoor = -1;
+			   let finalDoor = -1;
+			 
+			   // 选择门的函数
+			   function chooseDoor(doorIndex) {
+				 chosenDoor = doorIndex;
+				 // 打开没有奖品的门
+				 if (shownDoor === -1) {
+				   for (let i = 0; i < doors.length; i++) {
+					 if (i !== chosenDoor && doors[i] === 0) {
+					   shownDoor = i;
+					   break;
+					 }
+				   }
+				 }
+				 document.getElementById("shown-door").innerHTML = shownDoor + 1;
+				 document.getElementsByTagName("img")[shownDoor].src = "yang.png";
+				 document.getElementById("chosen-door").innerHTML = chosenDoor + 1;
+			   }
+			 
+			   // 换门
+			   function switchDoor() {
+				 for (let i = 0; i < doors.length; i++) {
+				   if (i !== chosenDoor && i !== shownDoor) {
+					 finalDoor = i;
+					 break;
+				   }
+				 }
+				 document.getElementById("final-door").innerHTML = finalDoor + 1;
+			
+				 checkResult();
+			   }
+			 
+			   // 坚持选择
+			   function stayWithDoor() {
+				 finalDoor = chosenDoor;
+				 document.getElementById("final-door").innerHTML = finalDoor + 1;
+				 checkResult();
+			   }
+			   // 检查最终结果
+			   function checkResult() {
+				 if (finalDoor === prizeDoor) {
+				   document.getElementById("result").innerHTML = "很遗憾，您没有获得奖品。";
+					 document.getElementsByTagName("img")[finalDoor].src = "yang.png";
+				 } else {
+				   document.getElementById("result").innerHTML = "恭喜你，获得了奖品！";
+				 	 document.getElementsByTagName("img")[finalDoor].src = "che.png";
+				 }
+				 
+				 // 显示结果
+				 document.getElementById("dialog").style.display = "block";
+				 // 显示模态框
+				 document.getElementById("myModal1").style.display = "block";
+				 
+				 // 触发 gameOver 事件
+				 let gameOverEvent = new Event("gameOver");
+				 window.dispatchEvent(gameOverEvent);
+			   }
+			   // 获取模态框元素
+			   var modal1 = document.getElementById("myModal1");
+			   
+			   // 获取关闭按钮元素
+			   var span = document.getElementsByClassName("close")[0];
+			 
+			 var btn = document.getElementById("myBtn");
+			 	btn.onclick = function() {
+			 document.getElementById("myModal2").style.display = "block";
+			 }
+			 var close2 = document.getElementsByClassName("close2")[0];
+			 close2.onclick = function() {
+			  document.getElementById("myModal2").style.display ="none";
+			  }  
+			   
+			
+</script>
+	</body>
+</html>
+

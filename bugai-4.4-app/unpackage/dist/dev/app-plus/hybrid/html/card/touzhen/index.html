@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>蒲丰投针模拟圆周率实验介绍</title>
+		    <link rel="stylesheet" href="style.css" />
+		<style>
+			.content {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				background-color: #609df8;
+				color: #fff;
+			}
+			.mod1 {
+				margin: 3px;
+				padding: 5px;
+				width: 90%;
+				background-color: #fff;
+				color: black;
+				justify-content: center;
+				border-radius: 8px;
+			}
+			.mod2 {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				margin: 3px;
+				padding: 5px;
+				width: 90%;
+				background-color: #fff;
+				font-weight: 500;
+				color: black;
+				justify-content: center;
+				border-radius: 8px;
+			}
+			.mod3 {
+				margin: 3px;
+				padding: 5px;
+				width: 90%;
+				background-color: #fff;
+				font-size: 16px;
+				font-weight: 500;
+				color: black;
+				justify-content: center;
+				border-radius: 8px;
+				align-items: center;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="content">
+			<h1 style="font-size: 70px;">蒲丰投针</h1>
+			<div class="mod1">
+				<div style="margin: auto; width: 28%"><h2 style="font-size: 56px;">历史起源</h2></div>
+				<p style="font-size: 45px;">&emsp;蒲丰投针模拟圆周率实验是由法国数学家蒲丰于 1733 年提出的一种实验，用于估算圆周率。</p>
+			</div>
+			<div class="mod2">
+				<div style="margin: auto;">
+				<div style="margin: auto; width: 28%"><h2 style="font-size: 56px;">实验步骤</h2></div><p style="font-size: 36px;">&emsp;1） 取一张白纸，在上面画上许多条间距为a的平行线。<br>
+				&emsp;2） 取一根长度为l（l≤a） 的针，随机地向画有平行直线的纸上掷n次，观察针与直线相交的次数，记为m。<br>
+				&emsp;3）计算针与直线相交的概率．</p>
+						  <p style="font-size: 36px;">&emsp;以下为比丰投针实验的模拟</p></div>
+			</div>
+			<div id="container" >
+			   <canvas id="canvas" width="960" height="960"></canvas>
+			<div>
+			  <label style="display: block; margin-bottom: 10px; font-size: 56px;">针的长度（针的长度应大于线的间距）：</label>
+			  <input id="length" type="number" value="100" style="margin-bottom: 10px;font-size: 56px;">
+			  <br>
+			  <label style="display: block; margin-bottom: 10px;font-size: 56px">线的间距：</label>
+			  <input id="gap" type="number" value="200" style="margin-bottom: 10px; font-size: 56px;">
+			  <br>
+			  <label style="display: block; margin-bottom: 10px; font-size: 56px;">投针的数量：</label>
+			  <input id="count" type="number" value="10000" style="margin-bottom: 10px;font-size: 56px;">
+			  <br>
+			  <button onclick="simulate()" style="font-size: 56px; display: block;
+  margin: 0 auto;
+}">开始模拟</button>
+			</div>
+			 <div id="result" style="font-size: 56px;">
+			 </div>
+			 </div>
+			<div class="mod3">
+				<h2 style="font-size: 56px;">意义</h2>
+				<p style="font-size: 36px;">比丰投针实验是一种简单但是直观的概率统计方法，它不仅可以用来估算圆周率，也可以用来研究其他几何形状的面积、长度等参数。现在，比丰投针实验已经被广泛应用于概率统计的教学、科研和科普活动中。</p>
+			</div>
+			<div class="mod3">
+				<h2 style="font-size: 56px;">原理</h2>
+				<p style="font-size: 36px;">通过投针的概率和与直线的交点数量的比值，可以估算出圆周率的值。</p>
+			</div>
+			<div class="mod3">
+				<h2 style="font-size: 56px;">实验证明</h2>
+				<img src="./jiaocai.png" alt="">
+				<p style="font-size: 36px;">详见高等教育出版社，茆诗松第三版教材23页</p>
+				</div>
+				<script src="script.js"></script>
+</body>				
+</html>
+<script>
+      function simulate() {
+        // 获取参数
+        var length = parseInt(document.getElementById("length").value);
+        var gap = parseInt(document.getElementById("gap").value);
+        var count = parseInt(document.getElementById("count").value);
+
+        // 绘制线段
+        var canvas = document.getElementById("canvas");
+        var context = canvas.getContext("2d");
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.beginPath();
+        for (var i = 0; i < canvas.width / gap; i++) {
+          context.moveTo(i * gap, 0);
+          context.lineTo(i * gap, canvas.height);
+        }
+        context.stroke();
+
+        // 模拟投针
+        var hits = 0;
+        for (var i = 0; i < count; i++) {
+          var x = Math.random() * canvas.width;
+          var y = Math.random() * canvas.height;
+          var angle = Math.random() * Math.PI;
+          var x2 = x + length * Math.cos(angle);
+          var y2 = y + length * Math.sin(angle);
+          context.beginPath();
+          context.moveTo(x, y);
+          context.lineTo(x2, y2);
+          if (Math.floor(Math.min(y, y2) / gap) != Math.floor(Math.max(y, y2) / gap)) {
+            context.strokeStyle = "red";
+            hits++;
+          } else {
+            context.strokeStyle = "black";
+          }
+          context.stroke();
+        }
+
+        // 计算π值
+        var pi = 2 * length * count / (gap * hits);
+              document.getElementById("result").innerHTML = "投针数量：" + count + "<br>落在线上的数量：" + hits + "<br>估计的π值：" + pi.toFixed(5);
+            }
+</script>

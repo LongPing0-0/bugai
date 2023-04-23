@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.3/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+    <title>FAQ</title>
+  </head>
+  <body>
+    <h1>统计量及其分布</h1>
+    <div class="faq-container">
+      <div class="faq active">
+        <h3 class="faq-title">
+            总体与样本
+        </h3>
+		<p class="faq-text">
+1总体与个体<br>在一个统计问题中，总体是研究对象的全体，个体是构成总体的每个成员．<br>总体可分为：一维总体，二维总体，三维总体；还可分为有限总体和无限总体．		    
+<br>2样本<br>为了解总体的分布，我们从总体中随机地抽取n个个体，记其指标值为x1，x2，…，xn，则x1，x2，…，xn称为总体的一个样本．n称为样本容量，或简称样本量，样本中的个体称为样品．<br>样本特点：随机性（即服从相同分布）和独立性（各样本相互独立）．<br>简单随机样本：用简单随机抽样方法得到的样本．
+		</p>
+        <button class="faq-toggle">
+          <i class="fas fa-chevron-down"></i>
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <div class="faq">
+        <h3 class="faq-title">
+            经验分布函数
+        </h3>
+		<p class="faq-text">
+定义<br>设x1，x2，…，xn是取自总体分布函数为F（x）的样本，若将样本观测值由小到大进行排列，为x（1），x（2），…，x（n），则x（1），x（2），…，x（n）称为有序样本，用有序样本定义如下函数：		   
+<img src="./tongji1.png" alt="" width="100%" height="auto">
+则Fn（x）是一非减右连续函数，且满足Fn（－∞＝0）和Fn（∞＝1）．由此可见，Fn（x）是一个分布函数，并称Fn（x）为经验分布函数．
+<br>格里纹科定理<br>设x1，x2，…，xn是取自总体分布函数为F（x）的样本，Fn（x）是其经验分布函数，当n→∞时，有
+<img src="./tongji2.png" alt="" width="100%" height="auto">
+		</p>
+        <button class="faq-toggle">
+          <i class="fas fa-chevron-down"></i>
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <div class="faq">
+        <h3 class="faq-title">
+            统计量与抽样分布
+        </h3>
+		<p class="faq-text">
+1)统计量与抽样分布<br>设x1，x2，…，xn为取自某总体的样本，若样本函数T＝T（x1，x2，…，xn）中不含任何未知参数，则称T为统计量．统计量的分布称为抽样分布．<br>2)样本均值及其抽样分布
+<br>取自某总体的样本，其算术平均值称为样本均值，一般用x̅表示，即
+<img src="./tongji3.png" alt="" width="100%" height="auto">
+在分组样本场合，样本均值的近似公式为
+<img src="./tongji4.png" alt="" width="100%" height="auto">
+其中k为组数，xi为第i组的组中值，fi为第i组的频数．
+		</p>
+        <button class="faq-toggle">
+          <i class="fas fa-chevron-down"></i>
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <div class="faq">
+        <h3 class="faq-title">
+       样本矩及其函数
+        </h3>
+		<p class="faq-text">
+(1)设x1，x2，…，xn是样本，k为正整数，则统计量
+<img src="./tongji5.png" alt="" width="100%" height="auto">
+称为样本k阶原点矩，样本一阶原点矩就是样本均值．统计量		 
+<img src="./tongji6.png" alt="" width="100%" height="auto">
+称为样本k阶中心矩，样本二阶中心矩就是样本方差．
+(2)设x1，x2，…，xn是样本，则称统计量
+<img src="./tongji7.png" alt="" width="100%" height="auto">
+为样本偏度．
+(3)设x1，x2，…，xn是样本，则称统计量
+<img src="./tongji8.png" alt="" width="100%" height="auto">
+为样本峰度．
+注意：①当β(∧)k明显大于0时，分布密度曲线在其峰值附近比正态分布来得陡，尾部更细，称为尖峰型；<br>②当β(∧)k明显小于0时．分布密度曲线在其峰值附近比正态分布来得平坦，尾部更粗，称为平顶型．
+		</p>
+        <button class="faq-toggle">
+          <i class="fas fa-chevron-down"></i>
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <div class="faq">
+        <h3 class="faq-title">
+            次序统计量及其分布
+        </h3>
+		<p class="faq-text">
+设x1，x2，…，xn是取自总体X的样本，x（i）称为该样本的第i个次序统计量，它的取值是将样本观测点由小到大排列后得到的第i个观测值．其中x（1）＝min{x1，…，xn}称为该样本的最小次序统计量，x（n）＝max{x1，…，xn}称为该样本的最大次序统计量．（x（1），…，x（n））称为该样本的次序统计量．<br>注意：在一个简单随机样本中，次序统计量既不独立，分布也不相同．
+<br>单个次序统计量的分布<br>设总体X密度函数为p（x），分布函数为F（x），x1，x2，…，xn为样本，则第k个次序统计量x（k）的密度函数为
+<img src="./tongji9.png" alt="" width="100%" height="auto">
+特别，令k＝1和k＝n即得到最小次序统计量x（1）和最大次序统计量x（n）的密度函数分别为<br>p1（x）＝n（1－F（x））n－1p（x）<br>pn（x）＝n（F（x））n－1p（x）
+<br>多个次序统计量及其函数的分布<br>在上一个定理下，次序统计量（x（i），x（j））（i＜j）的联合分布密度函数为
+<img src="./tongji10.png" alt="" width="100%" height="auto">
+		</p>
+        <button class="faq-toggle">
+          <i class="fas fa-chevron-down"></i>
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+	  <div class="faq">
+	    <h3 class="faq-title">
+	       样本分位数与样本中位数
+	    </h3>
+		<p class="faq-text">
+定义<br>设x（1），…，x（n）是有序样本，则样本中位数定义为			 
+<img src="./tongji11.png" alt="" width="100%" height="auto">
+更一般地，样本p分位数mp可如下定义：
+<img src="./tongji12.png" alt="" width="100%" height="auto">
+分布<br>设总体密度函数为p（x），xp为其p分位数，p（x）在xp处连续且p（xp）＞0，则当n→∞时样本p分位数mp的渐近分布为
+<img src="./tongji13.png" alt="" width="100%" height="auto">
+特别，对样本中位数，当n→∞时近似地有
+<img src="./tongji14.png" alt="" width="100%" height="auto">
+		</p>
+	    <button class="faq-toggle">
+	      <i class="fas fa-chevron-down"></i>
+	      <i class="fas fa-times"></i>
+	    </button>
+	  </div>  
+	  <div class="faq">
+	    <h3 class="faq-title">
+	        三大抽样分布
+	    </h3>
+	    <p class="faq-text">
+1)χ2分布（卡方分布）<br>定义：设X1，X2，…，Xn独立同分布于标准正态分布N（0，1），则χ2＝X12＋…＋Xn2的分布称为自由度为n的χ2分布，记为χ2～χ2（n）．<br>Eχ2＝n，Var（χ2）＝2n<br>定理：设x1，…，xn是来自正态总体N（μ，σ2）的样本，其样本均值和样本方差分别为     
+<img src="./tongji15.png" alt="" width="100%" height="auto">
+和
+<img src="./tongji16.png" alt="" width="100%" height="auto">
+则有：① x̅ 与s2相互独立；<br>② x̅ ～N（μ，σ2/n）；<br>③（n－1）s2/σ2～χ2（n－1）
+<br>2)F分布<br>定义：设随机变量X1～χ2（m），X2～χ2（n），X1与X2独立，则称
+<img src="./tongji17.png" alt="" width="100%" height="auto">
+的分布是自由度为m与n的F分布，记为F～（m，n），其中m称为分子自由度，n称为分母自由度．<br>小结论：对于较小α，可查表得到，对于较大的α，通过公式
+<img src="./tongji18.png" alt="" width="100%" height="auto">
+转化得到．
+<br>3)t分布<br>定义：设随机变量X1与X2独立且X1～（0，1），X2～χ2（n），则称
+<img src="./tongji19.png" alt="" width="100%" height="auto">
+的分布为自由度为n的t分布，记为t～t（n）．
+<br>特例：①自由度为1的t分布就是标准柯西分布，它的均值不存在．<br>②n＞1时，t分布的数学期望存在且为0．<br>③n＞2时，t分布的方差存在，且为n/（n－2）．<br>④当自由度较大（如n≥30）时，t分布可以用N（0，1）分布近似．
+	    </p>
+	    <button class="faq-toggle">
+	      <i class="fas fa-chevron-down"></i>
+	      <i class="fas fa-times"></i>
+	    </button>
+	  </div>  
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

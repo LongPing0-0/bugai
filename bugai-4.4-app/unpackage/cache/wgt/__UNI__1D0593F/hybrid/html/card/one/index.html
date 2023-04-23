@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.3/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+    <title>FAQ</title>
+  </head>
+  <body>
+    <h1>随机事件及其运算</h1>
+    <div class="faq-container">
+      <div class="faq active">
+        <h3 class="faq-title">
+            随机现象
+        </h3>
+
+        <p class="faq-text">
+            随件现象两个特点：（1）结果不止一个 （2）结果不可知
+        </p>
+		<p class="faq-text">
+		    相同条件下，可重复的随机现象的观察、记录、实验称为随机试验
+		</p>
+		<p class="faq-text">
+		    可重复：抛硬币正面朝上
+		</p>
+		<p class="faq-text">
+		    不可重复：某局游戏的输赢
+		</p>
+        <button class="faq-toggle">
+          <i class="fas fa-chevron-down"></i>
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <div class="faq">
+        <h3 class="faq-title">
+            样本空间
+        </h3>
+        <p class="faq-text">
+            样本空间：随机现象的一切可能基本结果组成的集合，记为Ω={ω}
+        </p>
+		<p class="faq-text">
+		    其中ω：样本点，基本结果，抽样的基本单元
+		</p>
+		<p class="faq-text">
+		   样本空间本质：集合
+		</p>
+		<p class="faq-text">
+		   样本空间：有限类，无限类
+		</p>
+		<p class="faq-text">
+		   离散样本空间：样本点数有限个、可列
+		</p>
+		<p class="faq-text">
+		   抛一枚硬币Ω_1={ω_1，ω_2}，其中ω_1表示正面朝上，ω_2反之
+		   连续样本空间：样本点数无限个、不可列
+		   一天内进入食堂的人数Ω_1={x:0,1,2,…,100,…}
+
+		</p>
+        <button class="faq-toggle">
+          <i class="fas fa-chevron-down"></i>
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <div class="faq">
+        <h3 class="faq-title">
+            随机事件
+        </h3>
+        <p class="faq-text">
+            随机事件：随机现象的某些样本点组成的集合，常记为A，B，C，样本空间Ω的子集
+        </p>
+		<p class="faq-text">
+		    样本空间掷一个骰子的点数Ω={1,2,3,4,5,6}
+		</p>
+		<p class="faq-text">
+		    基本事件：Ω的单个元素组成的子集
+		</p>
+		<p class="faq-text">
+		    事件A=点数为1
+		</p>
+		<p class="faq-text">
+		    必然事件：Ω的最大子集，Ω本身
+		</p>
+		<p class="faq-text">
+		    事件B=点数小于7
+		</p>
+		<p class="faq-text">
+		    不可能事件：Ω的最小子集，空集∅
+		</p>
+		<p class="faq-text">
+		   事件C=点数大于6
+		</p>
+        <button class="faq-toggle">
+          <i class="fas fa-chevron-down"></i>
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <div class="faq">
+        <h3 class="faq-title">
+            随机变量
+        </h3>
+        <p class="faq-text">
+            随机变量：表示随机结果的变量，常记为X，Y，Z
+        </p>
+		<p class="faq-text">
+		    掷一个骰子的点数：X
+		</p>
+		<p class="faq-text">
+		    点数为3：X=3
+		</p>
+		<p class="faq-text">
+		    手机的状态：Y
+		</p>
+		<p class="faq-text">
+		    开机：Y=1    关机：X=0
+		</p>
+        <button class="faq-toggle">
+          <i class="fas fa-chevron-down"></i>
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <div class="faq">
+        <h3 class="faq-title">
+            事件间的关系
+        </h3>
+        <p class="faq-text">
+            在样本空间Ω中
+        </p>
+		<p class="faq-text">
+		    包含关系：A⊂B     事件A发生事件B必发生
+		</p>
+		<p class="faq-text">
+		    相等关系：A⊂B 且 B⊂A
+		</p>
+		<p class="faq-text">
+		    互斥关系：事件A发生事件B不可能发生
+		</p>
+        <button class="faq-toggle">
+          <i class="fas fa-chevron-down"></i>
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+	  
+	  <div class="faq">
+	    <h3 class="faq-title">
+	        事件间的运算
+	    </h3>
+	    <p class="faq-text">
+	        并：A∪B   事件A与事件B至少有一个发生
+	    </p>
+	  	<p class="faq-text">
+	  		交：A∩B   事件A与事件B同时发生，简记为AB
+	  	</p>
+	  	<p class="faq-text">
+	  		 差：A-B   事件A发生而事件B不发生
+	  	</p>
+	  	<p class="faq-text">
+	  		 余：A∪¯A=Ω    事件Ad 对立事件为¯A
+	  	</p>
+		
+		<p class="faq-text">
+		    交换律：A∪B=B∪A,    AB=BA
+		</p>
+		<p class="faq-text">
+			结合律：(A∪B)∪C=A∪(B∪C),   (AB)C=A(BC)
+		</p>
+		<p class="faq-text">
+			分配律：(A∪B)∩C=AC∪BC,   (A∩B)∪C=(A∪C)∩(B∪C)
+		</p>
+		<p class="faq-text">
+			 对偶律（德摩根公式）
+		</p>
+		<p class="faq-text">
+			 ¯(A∪B)=¯A∩¯B,   ¯(A∩B)=¯A∪¯B
+		</p>
+	    <button class="faq-toggle">
+	      <i class="fas fa-chevron-down"></i>
+	      <i class="fas fa-times"></i>
+	    </button>
+	  </div>
+	  
+	  <div class="faq">
+	    <h3 class="faq-title">
+	        事件域
+	    </h3>
+	    <p class="faq-text">
+	        事件域：样本空间中某些子集及其运算结果而组成的集合类，记为F
+	    </p>
+	    <button class="faq-toggle">
+	      <i class="fas fa-chevron-down"></i>
+	      <i class="fas fa-times"></i>
+	    </button>
+	  </div>
+	  
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

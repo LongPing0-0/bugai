@@ -1,0 +1,15 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/signup/login",
+    "pages/signup/signup"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#4756DF",
+    "backgroundColor": "#4756DF"
+  },
+  "usingComponents": {}
+}

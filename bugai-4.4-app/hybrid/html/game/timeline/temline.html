@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
+    
+    
+ <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700i" rel="stylesheet">
+
+    <style>
+    
+        *{
+            margin: 0;
+            padding: 0;
+        }
+.timeline {
+  display: flex;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  flex-direction: column;
+  max-width: 900px;
+  position: relative;
+}
+.timeline__content-title {
+  font-weight: normal;
+  font-size: 100px;
+  margin: -10px 0 0 0;
+  transition: 0.4s;
+  padding: 0 10px;
+  box-sizing: border-box;
+  font-family: 'Oswald', sans-serif;
+  color: #fff;
+}
+.timeline__content-desc {
+  margin: 0;
+  font-size: 50px;
+  box-sizing: border-box;
+  color: rgba(255, 255, 255, .7);
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: normal;
+  line-height: 50px;
+}
+.timeline:before {
+  position: absolute;
+  left: 50%;
+  width: 2px;
+  height: 100%;
+  margin-left: -1px;
+  content: "";
+  background: rgba(255, 255, 255, .07);
+}
+@media only screen and (max-width: 767px) {
+  .timeline:before {
+    left: 40px;
+  }
+}
+.timeline-item {
+  padding: 40px 0;
+  opacity: 0.3;
+  filter: blur(2px);
+  transition: 0.5s;
+  font-size: 50px;
+  box-sizing: border-box;
+  width: calc(50% - 40px);
+  display: flex;
+  position: relative;
+  transform: translateY(-80px);
+}
+.timeline-item:before {
+  content: attr(data-text);
+  letter-spacing: 3px;
+  width: 100%;
+  position: absolute;
+  color: rgba(255, 255, 255, .5);
+  font-size: 50px;
+  font-family: 'Pathway Gothic One', sans-serif;
+  border-left: 2px solid rgba(255, 255, 255, .5);
+  top: 70%;
+  margin-top: -5px;
+  padding-left: 15px;
+  opacity: 0;
+  right: calc(-100% - 56px);
+}
+.timeline-item:nth-child(even) {
+  align-self: flex-end;
+}
+.timeline-item:nth-child(even):before {
+  right: auto;
+  text-align: right;
+  left: calc(-100% - 56px);
+  padding-left: 0;
+  border-left: none;
+  border-right: 2px solid rgba(255, 255, 255, .5);
+  padding-right: 15px;
+}
+.timeline-item--active {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0px);
+}
+.timeline-item--active:before {
+  top: 50%;
+  transition: 0.3s all 0.2s;
+  opacity: 1;
+}
+.timeline-item--active .timeline__content-title {
+  margin: -50px 0 20px 0;
+}
+@media only screen and (max-width: 800px) {
+  .timeline-item {
+    align-self: baseline !important;
+    width: 100%;
+    padding: 0 30px 150px 80px;
+  }
+  .timeline-item:before {
+    left: 10px !important;
+    padding: 0 !important;
+    top: 50px;
+    text-align: center !important;
+    width: 60px;
+    border: none !important;
+  }
+  .timeline-item:last-child {
+    padding-bottom: 40px;
+  }
+}
+
+.timeline__img {
+	max-width: 100%;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, .4);
+}
+.timeline-container {
+  width: 100%;
+  position: relative;
+  padding: 80px 0;
+  transition: 0.2s ease 0.1s;
+  background-attachment: fixed;
+  background-size: cover;
+}
+.timeline-container:before {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+ background: rgba(0,0,0,0.6);
+  content: "";
+}
+.timeline-header {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 80px;
+  position: relative;
+}
+.timeline-header__title {
+  color: #fff;
+  font-size: 150px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: normal;
+  margin: 0;
+}
+.timeline-header__subtitle {
+  color: rgba(255, 255, 255, .5);
+  font-family: 'Pathway Gothic One', sans-serif;
+  font-size: 50px;
+  letter-spacing: 5px;
+  margin: 10px 0 0 0;
+  font-weight: normal;
+}
+.demo-footer {
+  padding: 60px 0;
+  text-align: center;
+}
+.demo-footer a {
+  color: #999;
+  display: inline-block;
+  font-family: Cardo;
+}
+
+    </style>
+</head>
+<body>
+     <div class="timeline-container" id="timeline-1">
+  <div class="timeline-header">
+    <h2 class="timeline-header__title">概率论年表</h2>
+    <h3 class="timeline-header__subtitle">大道五十,天衍四九,遁去其一</h3>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item" data-text="上帝不掷骰子   —爱因斯坦">
+      <div class="timeline__content"><img class="timeline__img" src="1.jpg" />
+        <h2 class="timeline__content-title">伊始</h2>
+        <p class="timeline__content-desc">&emsp;如图，近似于骰子的玩具在公元前 5000 年的遗址中出土；人口调查在公元前 2700 年已进行；<br>&emsp;虽然人类的统计实践随着计数活动产生、统计发展史可以追溯到距今5000多年前的远古原始社会，但是能使人统计实践上升到理论予以概括总结，即统计开始成为一门系统的科学，却是近代的事情，距今只有300余年的短暂历史。</p>
+      </div>
+    </div>
+    <div class="timeline-item" data-text="巧合是上帝默默操控世界的方式">
+      <div class="timeline__content"><img class="timeline__img" src="2.jpg"/>
+        <h2 class="timeline__content-title">1494</h2>
+        <p class="timeline__content-desc">&emsp;15世纪是世界史发生重大转变的一个世纪，文艺复兴冲破了中世纪的黑暗统治，带来了科学的发展，艺术的繁荣，以及社会经济的深刻变化。其中意大利著名数学家卢卡·帕乔利举起了数学、文艺与经济革新的旗帜，他的巨著《算术、几何、比与比例概要》开创了世界统计发展史上的新时代——卢卡·帕乔利时代，从而把古代统计推进到近代统计的历史阶段。</p>
+      </div>
+    </div>
+    <div class="timeline-item" data-text="运伟大之思者，必行伟大之迷途.">
+      <div class="timeline__content"><img class="timeline__img" src="3.jpg"/>
+        <h2 class="timeline__content-title">1654</h2>
+        <p class="timeline__content-desc">&emsp;卡尔达诺(1539)、塔塔利亚(1556)、伽利略(1642)等均讨论过"点数问题"。最后于1654年,帕斯卡与费马通信两人用不同方法都正确解答了“点数问题”,这标志概率论诞生。<br>&emsp;图为卡尔达诺从小就是位命运坎坷的少年，但他同时也是赌场中的常胜军。他死后发表的《论赌博游戏》一书被认为是第一部概率论著作，他对现代概率论有开创之功，也被认为是「古典概率论」的创始人。</p>
+      </div>
+    </div>
+    <div class="timeline-item" data-text="知识有两种，一种是你知道的，另一种是你知道在哪里找到的.">
+      <div class="timeline__content"><img class="timeline__img" src="4.jpg"/>
+        <h2 class="timeline__content-title">1662</h2>
+        <p class="timeline__content-desc">&emsp;约翰·格朗特（1620-1674）.他以1604年伦敦教会每周一次发表的“死亡公报”为研究资料,在1662年发表了《关于死亡公报的自然和政治观察》的论著.<br>&emsp;书中分析了60年来伦敦居民死亡的原因及人口变动的关系,首次提出通过大量观察,可以发现新生儿性别比例具有稳定性和不同死因的比例等人口规律；并且第一次编制了“生命表”,对死亡率与人口寿命作了分析,从而引起了普遍的关注.他的研究清楚地表明了统计学作为国家管理工具的重要作用.
+        </p>
+      </div>
+    </div>
+    <div class="timeline-item" data-text="生命如同寓言，其价值不在于长短，而在于内容">
+      <div class="timeline__content"><img class="timeline__img" src="5.jpg"/>
+        <h2 class="timeline__content-title">1669</h2>
+        <p class="timeline__content-desc">&emsp;1669年 惠更斯根据格朗特著作构造了一根死亡率曲线,开创应用概率论于人口统计.<br>&emsp;克里斯蒂安·惠更斯(荷兰物理学家、天文学家、数学家)<br>&emsp;他是介于伽利略与牛顿之间一位重要的物理学先驱，是历史上最著名的物理学家之一，他对力学的发展和光学的研究都有杰出的贡献，在数学和天文学方面也有卓越的成就，是近代自然科学的一位重要开拓者。他建立向心力定律，提出动量守恒原理，并改进了计时器。</p>
+      </div>
+    </div>
+    <div class="timeline-item" data-text="我们把世界看错，反说它欺骗了我们">
+      <div class="timeline__content"><img class="timeline__img" src="6.jpg".jpg"/>
+        <h2 class="timeline__content-title">1733</h2>
+        <p class="timeline__content-desc">&emsp;1733年 棣莫弗导出正态曲线,提出最初的“中心极限定理”.<br>&emsp;中心极限定理，是指概率论中讨论随机变量序列部分和分布渐近于正态分布的一类定理。<br>&emsp;这组定理是数理统计学和误差分析的理论基础，指出了大量随机变量近似服从正态分布的条件。<br>&emsp;它是概率论中最重要的一类定理，有广泛的实际应用背景。在自然界与生产中，一些现象受到许多相互独立的随机因素的影响，如果每个因素所产生的影响都很微小时，总的影响可以看作是服从正态分布的。中心极限定理就是从数学上证明了这一现象。</p>
+      </div>
+    </div>
+    <div class="timeline-item" data-text="我们的科学永远只是找到近似真理">
+      <div class="timeline__content"><img class="timeline__img" src="7.jpg"/>
+        <h2 class="timeline__content-title">1805</h2>
+        <p class="timeline__content-desc">&emsp;1805年 勒让德发表论文“确定彗星轨道的新方法”,提出最小二乘法.<br>&emsp;最小二乘法（又称最小平方法）是一种数学优化技术。它通过最小化误差的平方和寻找数据的最佳函数匹配。利用最小二乘法可以简便地求得未知的数据，并使得这些求得的数据与实际数据之间误差的平方和为最小，在误差估计、不确定度、系统辨识及预测、预报等数据处理诸多学科领域得到广泛应用。</p>
+      </div>
+    </div>
+    <div class="timeline-item" data-text="才力应难夸数公,凡今谁是出群雄.">
+      <div class="timeline__content"><img class="timeline__img" src="8.jpg"/>
+        <h2 class="timeline__content-title">1851</h2>
+        <p class="timeline__content-desc">
+          &emsp;1851年 第一届国际统计会议在布鲁塞尔召开.
+		  阿道夫·凯特勒——比利时统计学家、数学家、天文学家、物理学家，国际统计会议之父、近代统计学之父、数理统计学派创始人<br>&emsp;
+		  凯特勒在自己的研究工作中，把统计学与概率论结合起来,并首次在社会科学的范畴内提出了他的大数律思想，把统计学的理论建立在大数律的基础上，在第三次国际统计会议上，论证了概率论方法对于统计价值测定的必要性。
+        </p>
+      </div>
+    </div>
+    <div class="timeline-item" data-text="明月也不曾记得，它曾点亮世界">
+      <div class="timeline__content"><img class="timeline__img" src="9.jpg"/>
+        <h2 class="timeline__content-title">1869</h2>
+        <p class="timeline__content-desc">&emsp;1869年 高尔顿出版《遗传基因》,开创生物统计研究,引进相关和回归,创用中位数,百分位数.<br>&emsp;高尔顿一生中发表了超过340篇的报告和书籍，他在1909年被授与爵士。高尔顿主张人类的才能是能够透过遗传延续的，并在1877年发表的关于种子的研究结果中指出了回归到平均值现象的存在，这个概念与现代统计学中的“回归”并不相同，但是却是回归一词的起源。在此后的研究中高尔顿第一次使用了相关系数的概念。他使用字母“r”来表示相关系数，这个传统一直延续至今。同时他也发表了关于指纹的论文和书籍，被认为对于现代利用指纹进行犯罪搜查方面有很大的贡献。</p>
+      </div>
+    </div>
+    <div class="timeline-item" data-text="你可以期待太阳从东方升起，而风却随心所欲地从四面八方吹来">
+      <div class="timeline__content"><img class="timeline__img" src="10.jpg"/>
+        <h2 class="timeline__content-title">1893</h2>
+        <p class="timeline__content-desc">&emsp;1893年 皮尔逊第一次使用术语“矩”,引进“标准差”术语和记号σ，又在一次演讲中命名高斯曲线为“正态分布”
+<br>&emsp; 卡尔·皮尔逊是英国数学家，生物统计学家，数理统计学的创立者，自由思想者，对生物统计学、气象学、社会达尔文主义理论和优生学做出了重大贡献。他被公认是旧派理学派和描述统计学派的代表人物，并被誉为现代统计科学的创立者。
+<br>主要贡献：<br>&emsp; 1.打破次数分布曲线的“唯正态”观念，导出一般化的次数曲线体系。
+<br>&emsp; 2.提出卡方（χ2）检验来测定观察值与期望值之间的差异显著性
+<br>&emsp; 3.提出了净相关、复相关、总相关、相关比、标准差及其符号σ等概念，发明了计算复相关和净相关的方法及相关系数的公式。       </p>
+      </div>
+    </div>
+    <div class="timeline-item" data-text="科学家不是依赖于个人的思想，而是综合了几千人的智慧，所有的人想一个问题，并且每人做它的部分工作，添加到正建立起来的伟大知识大厦之中">
+      <div class="timeline__content"><img class="timeline__img" src="11.jpg"/>
+        <h2 class="timeline__content-title">1923-1927</h2>
+        <p class="timeline__content-desc">
+          &emsp;量子力学建立：
+          1925年 海森伯提出矩阵力学.<br>
+          1926年 薛定谔提出波动方程.<br>
+          1926年 玻恩提出概率诠释.<br>
+          1927年 海森伯提出测不准关系式.</p>
+      </div>
+    </div>
+    <div class="timeline-item" data-text="观天之道，执天之行">
+      <div class="timeline__content"><img class="timeline__img" src="12.jpg"/>
+        <h2 class="timeline__content-title">1933</h2>
+        <p class="timeline__content-desc">&emsp;1933年 科尔莫戈罗夫出版《概率论基础》.        </p>
+      </div>
+    </div>
+    <div class="timeline-item" data-text="判天地之美，析万物之理">
+      <div class="timeline__content"><img class="timeline__img" src="13.jpg"/>
+        <h2 class="timeline__content-title">1950</h2>
+        <p class="timeline__content-desc">
+          &emsp;1950年 费勒《概率论及其应用》第一卷出版.</p>
+      </div>
+    </div>
+  <div style="margin-top: 1000px;"></div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+ <script>
+    
+    (function($) {
+  $.fn.timeline = function() {
+    var selectors = {
+      id: $(this),
+      item: $(this).find(".timeline-item"),
+      activeClass: "timeline-item--active",
+      img: ".timeline__img"
+    };
+    selectors.item.eq(0).addClass(selectors.activeClass);
+    selectors.id.css(
+      "background-image",
+      "url(" +
+        selectors.item
+          .first()
+          .find(selectors.img)
+          .attr("src") +
+        ")"
+    );
+    var itemLength = selectors.item.length;
+    $(window).scroll(function() {
+      var max, min;
+      var pos = $(this).scrollTop();
+      selectors.item.each(function(i) {
+        min = $(this).offset().top;
+        max = $(this).height() + $(this).offset().top;
+        var that = $(this);
+        if (i == itemLength - 2 && pos > min + $(this).height() / 60) {
+          selectors.item.removeClass(selectors.activeClass);
+          selectors.id.css(
+            "background-image",
+            "url(" +
+              selectors.item
+                .last()
+                .find(selectors.img)
+                .attr("src") +
+              ")"
+          );
+          selectors.item.last().addClass(selectors.activeClass);
+        } else if (pos <= max - 100 && pos >= min) {
+          selectors.id.css(
+            "background-image",
+            "url(" +
+              $(this)
+                .find(selectors.img)
+                .attr("src") +
+              ")"
+          );
+          selectors.item.removeClass(selectors.activeClass);
+          $(this).addClass(selectors.activeClass);
+        }
+      });
+    });
+  };
+})(jQuery);
+
+$("#timeline-1").timeline();
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
